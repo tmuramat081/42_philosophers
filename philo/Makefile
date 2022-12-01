@@ -5,7 +5,11 @@ CFLAGS := -Wall -Wextra -Werror
 
 SRCS_DIR := srcs/
 SRCS := main.c \
+		input.c \
 		solver.c \
+		init.c \
+		print.c \
+		error.c
 
 OBJS_DIR := objs/
 OBJS := ${addprefix ${OBJS_DIR},${SRCS:.c=.o}}

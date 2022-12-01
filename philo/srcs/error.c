@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 00:44:31 by tmuramat          #+#    #+#             */
-/*   Updated: 2022/12/02 01:19:58 by tmuramat         ###   ########.fr       */
+/*   Created: 2022/12/01 02:27:08 by tmuramat          #+#    #+#             */
+/*   Updated: 2022/12/01 02:27:44 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int ac, char **av)
+void	handle_error(void)
 {
-	t_philos_dto	philos_dto;
-
-	if (!(ac == 4 || ac == 5))
-		handle_error();
-	philos_dto = input_arguments(av);
-	solve_philos_problem(philos_dto);
-	return (0);
+	printf("test: error");
+	exit(EXIT_FAILURE);
 }
