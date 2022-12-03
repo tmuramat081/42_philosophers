@@ -12,7 +12,15 @@
 
 #include "philosophers.h"
 
-void	solve_philosophers_problem(t_waiter waiter)
+
+
+
+void	solve_philos_problem(t_dto dto)
 {
-	(void)waiter;
+	t_arbitrator	*waiter;
+	t_philosopher	*philos;
+
+	waiter = init_waiter(dto);
+	philos = init_philosophers(dto);
+	
 }
