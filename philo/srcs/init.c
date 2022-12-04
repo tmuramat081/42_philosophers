@@ -1,10 +1,18 @@
 #include "philosophers.h"
 
+longlong gettime()
+{
+	struct timeval	tv;
+	gettimeofday(&tv, NULL);
+	
+}
+
 t_arbitrator	*init_waiter(t_dto dto)
 {
 	t_arbitrator	*waiter;
 
 	waiter = malloc(sizeof(t_arbitrator));
+	waiter->start_time = gettimeofday()
 	waiter->num_of_philos = dto.num_of_philosophers;
 	waiter->time_to_die = dto.time_to_die;
 	waiter->time_to_sleep = dto.time_to_sleep;

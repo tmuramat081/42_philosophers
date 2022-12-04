@@ -7,6 +7,8 @@ SRCS_DIR := srcs/
 SRCS := main.c \
 		input.c \
 		init.c \
+		error.c \
+		action.c \
 		solver.c
 
 OBJS_DIR := objs/
