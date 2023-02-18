@@ -15,9 +15,9 @@ int	convert_str_to_int(char *str)
 	return ((int)long_num);
 }
 
-t_dto	input_arguments(char **av)
+t_philo_dto	input_arguments(char **av)
 {
-	t_dto	args;
+	t_philo_dto	args;
 
 	args.num_of_philosophers = convert_str_to_int(av[1]);
 	args.time_to_die = convert_str_to_int(av[2]);

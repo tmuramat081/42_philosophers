@@ -14,7 +14,7 @@
 
 int	main(int ac, char **av)
 {
-	t_dto	args;
+	t_philo_dto	args;
 
 	if (!(ac == 5 || ac == 6))
 		handle_error();

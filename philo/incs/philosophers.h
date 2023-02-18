@@ -13,43 +13,59 @@
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
+# define MSG_TAKEN_FORK "has taken a fork"
+# define MSG_EATING "is eating"
+# define MSG_SLEEPING "is sleeping"
+# define MSG_THINKING "is thinking"
+# define MSG_DIED "is died"
+
 # include <libc.h>
 # include <pthread.h>
 # include "libft.h"
 # include "philosophers.h"
 
-# define ""
+typedef struct timeval	t_timeval;
 
-typedef struct s_dto
+/**
+ * @brief コマンドライン引数からの取得用DTO型
+ *
+ */
+typedef struct s_philo_dto
 {
 	size_t	num_of_philosophers;
 	size_t	time_to_die;
 	size_t	time_to_eat;
 	size_t	time_to_sleep;
 	size_t	num_of_eating;
-}	t_dto;
+}	t_philo_dto;
 
 typedef struct s_philosopher
 {
-	size_t 		id;
+	size_t		id;
 	pthread_t	thread_id;
-
+	long		start_time;
+	size_t		time_to_die;
+	size_t		time_to_eat;
+	size_t		time_to_sleep;
+	size_t		fork_left;
+	size_t		fork_right;
 }	t_philosopher;
 
 typedef struct s_arbitrator
 {
-	time_t	start_time;
-	size_t	num_of_philos;
-	size_t	time_to_die;
-	size_t	time_to_eat;
-	size_t	time_to_sleep;
-	size_t	num_of_eating;
+	long			start_time;
+	pthread_mutex_t	forks;
+	size_t			num_of_philos;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			num_of_eating;
 }	t_arbitrator;
 
-t_dto			input_arguments(char **av);
-void			solve_philos_problem(t_dto);
-t_arbitrator	*init_waiter(t_dto dto);
-t_philosopher	*init_philosophers(t_dto dto);
+t_philo_dto		input_arguments(char **av);
+void			solve_philos_problem(t_philo_dto input);
+t_arbitrator	*init_waiter(t_philo_dto input);
+t_philosopher	*init_philosophers(t_philo_dto input);
 void			handle_error(void);
 void			*lifecycle(void *philo);
 void			start_dinner(t_philosopher *philos, t_arbitrator *waiter);

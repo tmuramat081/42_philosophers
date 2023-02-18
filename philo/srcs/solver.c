@@ -34,16 +34,15 @@ void	end_dinner(t_philosopher *philos, t_arbitrator *waiter)
 		pthread_join(philos[i].thread_id, NULL);
 		i++;
 	}
-
 }
 
-void	solve_philos_problem(t_dto dto)
+void	solve_philos_problem(t_philo_dto input)
 {
 	t_arbitrator	*waiter;
 	t_philosopher	*philos;
 
-	philos = init_philosophers(dto);
-	waiter = init_waiter(dto);
+	philos = init_philosophers(input);
+	waiter = init_waiter(input);
 	start_dinner(philos, waiter);
 	end_dinner(philos, waiter);
 }
