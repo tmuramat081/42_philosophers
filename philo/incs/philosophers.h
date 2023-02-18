@@ -18,6 +18,7 @@
 # define MSG_SLEEPING "is sleeping"
 # define MSG_THINKING "is thinking"
 # define MSG_DIED "is died"
+# define PHILO_MAX 500
 
 # include <libc.h>
 # include <pthread.h>
@@ -41,33 +42,35 @@ typedef struct s_philo_dto
 
 typedef struct s_philosopher
 {
-	size_t		id;
-	pthread_t	thread_id;
-	long		start_time;
-	size_t		time_to_die;
-	size_t		time_to_eat;
-	size_t		time_to_sleep;
-	size_t		fork_left;
-	size_t		fork_right;
+	size_t			id;
+	pthread_t		thread_id;
+	long			start_time;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	pthread_mutex_t	fork_left;
+	pthread_mutex_t	fork_right;
+	size_t			cnt_eat;
 }	t_philosopher;
 
 typedef struct s_arbitrator
 {
 	long			start_time;
-	pthread_mutex_t	forks;
+	pthread_mutex_t	forks[PHILO_MAX];
 	size_t			num_of_philos;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			num_of_eating;
+	size_t			num_of_eat;
 }	t_arbitrator;
 
 t_philo_dto		input_arguments(char **av);
 void			solve_philos_problem(t_philo_dto input);
 t_arbitrator	*init_waiter(t_philo_dto input);
-t_philosopher	*init_philosophers(t_philo_dto input);
+t_philosopher	*init_philosophers(t_philo_dto input, t_arbitrator *waiter);
 void			handle_error(void);
 void			*lifecycle(void *philo);
 void			start_dinner(t_philosopher *philos, t_arbitrator *waiter);
+long			gettime_ms(void);
 
 #endif

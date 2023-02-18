@@ -41,8 +41,8 @@ void	solve_philos_problem(t_philo_dto input)
 	t_arbitrator	*waiter;
 	t_philosopher	*philos;
 
-	philos = init_philosophers(input);
 	waiter = init_waiter(input);
+	philos = init_philosophers(input, waiter);
 	start_dinner(philos, waiter);
 	end_dinner(philos, waiter);
 }

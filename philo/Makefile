@@ -9,7 +9,8 @@ SRCS := main.c \
 		init.c \
 		error.c \
 		action.c \
-		solver.c
+		solver.c \
+		utils.c
 
 OBJS_DIR := objs/
 OBJS := ${addprefix ${OBJS_DIR},${SRCS:.c=.o}}

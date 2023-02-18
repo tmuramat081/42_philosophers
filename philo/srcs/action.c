@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
+# include <pthread.h>
 
 long	get_elapsed_time_usec(long start_ms)
 {
@@ -33,19 +34,24 @@ void	put_timestump(char *string, t_philosopher *philo)
 
 void	do_think(t_philosopher *philo)
 {
-	sleep(philo->time_to_sleep);
 	put_timestump(MSG_EATING, philo);
 }
 
 void	do_sleep(t_philosopher *philo)
 {
-	sleep(philo->time_to_sleep);
+	usleep(philo->time_to_sleep);
 	put_timestump(MSG_SLEEPING, philo);
 }
 
 void	do_eat(t_philosopher *philo)
 {
-	sleep(philo->time_to_eat);
+	pthread_mutex_lock(&philo->fork_left);
+	pthread_mutex_lock(&philo->fork_right);
+
+	usleep(philo->time_to_eat);
+	philo->cnt_eat++;
+	pthread_mutex_unlock(&philo->fork_left);
+	pthread_mutex_unlock(&philo->fork_right);
 	put_timestump(MSG_EATING, philo);
 }
 
