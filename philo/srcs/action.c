@@ -13,57 +13,41 @@
 #include "philosophers.h"
 # include <pthread.h>
 
-long	get_elapsed_time_usec(long start_ms)
+void	do_eat(t_philosopher *philo, t_arbitrator *waiter)
 {
-	t_timeval	now;
-	long		now_ms;
-
-	if (gettimeofday(&now, NULL) < 0)
-		exit(1);
-	now_ms = (long)(now.tv_sec * 1000) + (long)(now.tv_usec / 1000);
-	return (now_ms - start_ms);
+	(void)waiter;
+	pthread_mutex_unlock(philo->mutex);
+	put_timestamp(MSG_EATING, philo);
+	philo->time_last_eaten = gettime_ms();
+	philo->count_eaten++;
+	pthread_mutex_lock(philo->mutex);
 }
 
-void	put_timestump(char *string, t_philosopher *philo)
+void	do_pick_up_forks(t_philosopher *philo)
 {
-	long	elapsed_time;
-
-	elapsed_time = get_elapsed_time_usec(philo->start_time);
-	printf("%ld %zu %s\n", elapsed_time, philo->id, string);
+	pthread_mutex_lock(philo->fork_left);
+	put_timestamp(MSG_TAKEN_FORK, philo);
+	pthread_mutex_lock(philo->fork_right);
+	put_timestamp(MSG_TAKEN_FORK, philo);
 }
 
-void	do_think(t_philosopher *philo)
+void	do_take_down_forks(t_philosopher *philo)
 {
-	put_timestump(MSG_EATING, philo);
+	pthread_mutex_unlock(philo->fork_left);
+	pthread_mutex_unlock(philo->fork_right);
 }
 
-void	do_sleep(t_philosopher *philo)
-{
-	usleep(philo->time_to_sleep);
-	put_timestump(MSG_SLEEPING, philo);
-}
-
-void	do_eat(t_philosopher *philo)
-{
-	pthread_mutex_lock(&philo->fork_left);
-	pthread_mutex_lock(&philo->fork_right);
-
-	usleep(philo->time_to_eat);
-	philo->cnt_eat++;
-	pthread_mutex_unlock(&philo->fork_left);
-	pthread_mutex_unlock(&philo->fork_right);
-	put_timestump(MSG_EATING, philo);
-}
-
-void	*lifecycle(void *void_philo)
+void	*lifecycle(void *p_philo)
 {
 	t_philosopher	*philo;
 
-	philo = (t_philosopher *)void_philo;
+	philo = (t_philosopher *)p_philo;
 	while (true)
 	{
-		do_eat(philo);
-		do_sleep(philo);
-		do_think(philo);
+		do_pick_up_forks(philo);
+		do_eat(philo, philo->waiter);
+		do_take_down_forks(philo);
+		usleep(philo->waiter->time_to_eat * 1000);
+		put_timestamp(MSG_EATING, philo);
 	}
 }

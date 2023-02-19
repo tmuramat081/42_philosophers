@@ -14,35 +14,26 @@
 
 void	start_dinner(t_philosopher *philos, t_arbitrator *waiter)
 {
-	size_t	i;
+	size_t		i;
+	pthread_t	ptd;
 
+	pthread_create(&ptd, NULL, monitor, waiter);
 	i = 0;
 	while (i < waiter->num_of_philos)
 	{
-		pthread_create(&philos[i].thread_id, NULL, lifecycle, &philos[i]);
+		pthread_create(&ptd, NULL, lifecycle, &philos[i]);
+		pthread_detach(ptd);
 		i++;
 	}
 }
 
-void	end_dinner(t_philosopher *philos, t_arbitrator *waiter)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < waiter->num_of_philos)
-	{
-		pthread_join(philos[i].thread_id, NULL);
-		i++;
-	}
-}
-
-void	solve_philos_problem(t_philo_dto input)
+void	simulate_problem(t_philo_dto input)
 {
 	t_arbitrator	*waiter;
 	t_philosopher	*philos;
 
 	waiter = init_waiter(input);
 	philos = init_philosophers(input, waiter);
+	waiter->philos = philos;
 	start_dinner(philos, waiter);
-	end_dinner(philos, waiter);
 }

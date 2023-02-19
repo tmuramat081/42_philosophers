@@ -19,6 +19,6 @@ int	main(int ac, char **av)
 	if (!(ac == 5 || ac == 6))
 		handle_error();
 	args = input_arguments(av);
-	solve_philos_problem(args);
+	simulate_problem(args);
 	return (0);
 }

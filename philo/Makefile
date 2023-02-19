@@ -1,6 +1,6 @@
 # Compile variables
 NAME := philosophers
-CC := gcc
+CC := gcc -g
 CFLAGS := -Wall -Wextra -Werror
 
 SRCS_DIR := srcs/
@@ -10,6 +10,7 @@ SRCS := main.c \
 		error.c \
 		action.c \
 		solver.c \
+		monitor.c \
 		utils.c
 
 OBJS_DIR := objs/
@@ -19,20 +20,14 @@ DEPS := ${addprefix ${OBJS_DIR},${SRCS:.c=.d}}
 LIBFT_DIR := libs/ft/
 LIBFT := ${LIBFT_DIR}libft.a
 
-LIBVECTOR_DIR := libs/vector/
-LIBVECTOR := ${LIBVECTOR_DIR}libvector.a
-
 LIBDEQUE_DIR := libs/deque/
 LIBDEQUE := ${LIBDEQUE_DIR}libdeque.a
 
 LIBPQUEUE_DIR := libs/priority_queue/
 LIBPQUEUE := ${LIBPQUEUE_DIR}libpqueue.a
 
-LIBHASHSET_DIR := libs/hashset/
-LIBHASHSET := ${LIBHASHSET_DIR}libhashset.a
-
 INCS := -I./incs/ -I./${LIBFT_DIR}incs/ -I./${LIBDEQUE_DIR}incs/ \
-	-I./${LIBVECTOR_DIR}incs/ -I./${LIBPQUEUE_DIR}incs/ -I./${LIBHASHSET_DIR}incs/
+	-I./${LIBPQUEUE_DIR}incs/
 
 # Print variables
 PRINTF := printf
@@ -56,8 +51,8 @@ PROGRESS = ${eval SRC_CNT = ${shell expr ${SRC_CNT} + 1}} \
 	$(SRC_CNT) $(SRC_TOT) $(SRC_PCT)
 
 # Main commands
-${NAME}: ${LIBFT} ${LIBDEQUE} ${LIBVECTOR} ${LIBPQUEUE} ${LIBHASHSET} ${OBJS}
-	@${CC} ${CFLAGS} ${INCS} ${OBJS} ${LIBFT} ${LIBDEQUE} ${LIBVECTOR} ${LIBPQUEUE} ${LIBHASHSET} -o $@
+${NAME}: ${LIBFT} ${LIBDEQUE} ${LIBPQUEUE} ${OBJS}
+	@${CC} ${CFLAGS} ${INCS} ${OBJS} ${LIBFT} ${LIBDEQUE} ${LIBPQUEUE} -o $@
 	@echo "\n${BLUE}--- ${NAME} is up to date! ---${DEFAULT}"
 
 ${LIBFT}:
@@ -66,14 +61,8 @@ ${LIBFT}:
 ${LIBDEQUE}:
 	@${MAKE} -C ${LIBDEQUE_DIR} --no-print-directory
 
-${LIBVECTOR}:
-	@${MAKE} -C ${LIBVECTOR_DIR} --no-print-directory
-
 ${LIBPQUEUE}:
 	@${MAKE} -C ${LIBPQUEUE_DIR} --no-print-directory
-
-${LIBHASHSET}:
-	@${MAKE} -C ${LIBHASHSET_DIR} --no-print-directory
 
 ${OBJS_DIR}%.o: ${SRCS_DIR}%.c
 	@${PROGRESS}
@@ -89,19 +78,14 @@ clean:
 	${RM} ${OBJS} ${DEPS}
 	@${MAKE} clean -C ${LIBFT_DIR} --no-print-directory
 	@${MAKE} clean -C ${LIBDEQUE_DIR} --no-print-directory
-	@${MAKE} clean -C ${LIBVECTOR_DIR} --no-print-directory
 	@${MAKE} clean -C ${LIBPQUEUE_DIR} --no-print-directory
-	@${MAKE} clean -C ${LIBHASHSET_DIR} --no-print-directory
-
 
 #: Remove all object and executable files.
 fclean:	clean
 	${RM} ${NAME}
 	${RM} ${LIBFT}
 	${RM} ${LIBDEQUE}
-	${RM} ${LIBVECTOR}
 	${RM} ${LIBPQUEUE}
-	${RM} ${LIBHASHSET}
 
 #: Remove and recompile all.
 re: fclean
