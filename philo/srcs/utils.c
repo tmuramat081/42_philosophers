@@ -9,7 +9,7 @@ long	gettime_ms(void)
 	return ((long)(tv.tv_sec * 1000) + (long)(tv.tv_usec / 1000));
 }
 
-long	get_elapsed_time_usec(long start_ms)
+long	get_elapsed_time_ms(long start_ms)
 {
 	t_timeval	now;
 	long		now_ms;
@@ -24,6 +24,6 @@ void	put_timestamp(char *string, t_philosopher *philo)
 {
 	long	elapsed_time;
 
-	elapsed_time = get_elapsed_time_usec(philo->start_time);
+	elapsed_time = get_elapsed_time_ms(philo->start_time);
 	printf("%ld %zu %s\n", elapsed_time, philo->id, string);
 }

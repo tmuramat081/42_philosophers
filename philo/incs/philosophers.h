@@ -77,7 +77,7 @@ void			handle_error(void);
 void			*lifecycle(void *philo);
 void			start_dinner(t_philosopher *philos, t_arbitrator *waiter);
 long			gettime_ms(void);
-long			get_elapsed_time_usec(long start_ms);
+long			get_elapsed_time_ms(long start_ms);
 void			put_timestamp(char *string, t_philosopher *philo);
 void 			*monitor(void *p_waiter);
 

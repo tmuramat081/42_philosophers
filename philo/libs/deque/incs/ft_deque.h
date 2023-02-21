@@ -58,4 +58,8 @@ void	*ft_deque_next(t_deque *deque, void *i, size_t n);
 void	*ft_deque_prev(t_deque *deque, void *i, size_t n);
 void	ft_deque_foreach(t_deque *deque, void (*func)(void *));
 
+// ********** Mutex ********** //
+void	ft_deque_lock(t_deque	*deque);
+void	ft_deque_unlock(t_deque	*deque);
+
 #endif

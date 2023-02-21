@@ -28,5 +28,6 @@ t_deque	*ft_deque_init(size_t data_size, size_t cap)
 	ft_deque_clear(new_deque);
 	new_deque->cap = cap;
 	new_deque->data_size = data_size;
+	pthread_mutex_init(&new_deque->mutex, NULL);
 	return (new_deque);
 }

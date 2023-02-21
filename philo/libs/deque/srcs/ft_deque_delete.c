@@ -21,6 +21,7 @@ void	ft_deque_clear(t_deque *deque)
 
 void	ft_deque_delete(t_deque **deque)
 {
+	pthread_mutex_destroy(&(*deque)->mutex);
 	free((*deque)->data);
 	(*deque)->data = NULL;
 	free((*deque));

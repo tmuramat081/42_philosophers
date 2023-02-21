@@ -16,7 +16,7 @@ void	*monitor(void *p_waiter)
 			if (gettime_ms() - philos[i].time_last_eaten > (long)waiter->time_to_eat)
 			{
 				put_timestamp(MSG_DIED, &philos[i]);
-				// pthread_mutex_lock(&philos[i].mutex);
+				pthread_mutex_lock(&philos[i].mutex);
 				return ((void *)0);
 			}
 			i++;
