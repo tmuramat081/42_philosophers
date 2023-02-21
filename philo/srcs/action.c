@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkohki <kkohki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 11:33:36 by tmuramat          #+#    #+#             */
-/*   Updated: 2022/12/04 12:06:26 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:14:07 by kkohki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 void	do_eat(t_philosopher *philo, t_arbitrator *waiter)
 {
 	(void)waiter;
-	pthread_mutex_unlock(philo->mutex);
+	pthread_mutex_lock(&philo->mutex);
 	put_timestamp(MSG_EATING, philo);
 	philo->time_last_eaten = gettime_ms();
 	philo->count_eaten++;
-	pthread_mutex_lock(philo->mutex);
+	pthread_mutex_unlock(&philo->mutex);
 }
 
 void	do_pick_up_forks(t_philosopher *philo)

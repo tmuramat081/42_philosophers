@@ -19,15 +19,17 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <pthread.h>
 
 // ********** Data structure ********** //
 typedef struct s_deque{
-	void		*data;
-	void		*begin;
-	void		*end;
-	size_t		len;
-	size_t		cap;
-	size_t		data_size;
+	void			*data;
+	void			*begin;
+	void			*end;
+	size_t			len;
+	size_t			cap;
+	size_t			data_size;
+	pthread_mutex_t	mutex;
 }	t_deque;
 
 // ********** Constructor ********** //

@@ -32,7 +32,7 @@ t_philosopher	*init_philosophers(t_philo_dto input, t_arbitrator *waiter)
 		philos[i].fork_left = &waiter->forks[i + 1];
 		philos[i].fork_right = &waiter->forks[i];
 		philos[i].count_eaten = 0;
-		philos[i].time_last_eaten = 0;
+		philos[i].time_last_eaten = philos[i].start_time;
 		philos[i].waiter = waiter;
 		pthread_mutex_init(&philos[i].mutex, NULL);
 		i++;

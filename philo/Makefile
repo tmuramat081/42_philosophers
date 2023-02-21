@@ -9,7 +9,7 @@ SRCS := main.c \
 		init.c \
 		error.c \
 		action.c \
-		solver.c \
+		simulate.c \
 		monitor.c \
 		utils.c
 
