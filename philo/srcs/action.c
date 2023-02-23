@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkohki <kkohki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 11:33:36 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/02/20 16:14:07 by kkohki           ###   ########.fr       */
+/*   Updated: 2023/02/23 19:22:18 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-# include <pthread.h>
+#include <pthread.h>
 
 void	do_eat(t_philosopher *philo, t_arbitrator *waiter)
 {
-	(void)waiter;
 	pthread_mutex_lock(&philo->mutex);
-	put_timestamp(MSG_EATING, philo);
 	philo->time_last_eaten = gettime_ms();
+	put_timestamp(MSG_EATING, philo);
+	usleep(waiter->time_to_eat * 1000);
 	philo->count_eaten++;
 	pthread_mutex_unlock(&philo->mutex);
 }
@@ -37,6 +37,17 @@ void	do_take_down_forks(t_philosopher *philo)
 	pthread_mutex_unlock(philo->fork_right);
 }
 
+void	do_sleep(t_philosopher *philo, t_arbitrator *waiter)
+{
+	put_timestamp(MSG_SLEEPING, philo);
+	usleep(waiter->time_to_eat * 1000);
+}
+
+void	do_think(t_philosopher *philo)
+{
+	put_timestamp(MSG_THINKING, philo);
+}
+
 void	*lifecycle(void *p_philo)
 {
 	t_philosopher	*philo;
@@ -47,7 +58,7 @@ void	*lifecycle(void *p_philo)
 		do_pick_up_forks(philo);
 		do_eat(philo, philo->waiter);
 		do_take_down_forks(philo);
-		usleep(philo->waiter->time_to_eat * 1000);
-		put_timestamp(MSG_EATING, philo);
+		do_sleep(philo, philo->waiter);
+		do_think(philo);
 	}
 }

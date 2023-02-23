@@ -17,7 +17,7 @@
 # define MSG_EATING "is eating"
 # define MSG_SLEEPING "is sleeping"
 # define MSG_THINKING "is thinking"
-# define MSG_DIED "is died"
+# define MSG_DIED "died"
 # define PHILO_MAX 500
 
 # include <libc.h>
@@ -36,7 +36,7 @@ typedef struct s_philosopher	t_philosopher;
  */
 struct s_philo_dto
 {
-	size_t	num_of_philosophers;
+	size_t	num_of_philos;
 	size_t	time_to_die;
 	size_t	time_to_eat;
 	size_t	time_to_sleep;
@@ -66,18 +66,19 @@ struct s_arbitrator
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	size_t			num_of_eat;
+	pthread_mutex_t	is_end;
 	t_philosopher	*philos;
 };
 
 t_philo_dto		input_arguments(char **av);
 void			simulate_problem(t_philo_dto input);
-t_arbitrator	*init_waiter(t_philo_dto input);
+t_arbitrator	init_waiter(t_philo_dto input);
 t_philosopher	*init_philosophers(t_philo_dto input, t_arbitrator *waiter);
 void			handle_error(void);
 void			*lifecycle(void *philo);
 void			start_dinner(t_philosopher *philos, t_arbitrator *waiter);
 long			gettime_ms(void);
-long			get_elapsed_time_ms(long start_ms);
+long			get_elapsed_time(long start_ms, long end_ms);
 void			put_timestamp(char *string, t_philosopher *philo);
 void 			*monitor(void *p_waiter);
 

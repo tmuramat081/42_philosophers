@@ -1,6 +1,6 @@
 # Compile variables
-NAME := philosophers
-CC := gcc -g
+NAME := philo
+CC := gcc -g -fsanitize=address
 CFLAGS := -Wall -Wextra -Werror
 
 SRCS_DIR := srcs/
@@ -10,7 +10,6 @@ SRCS := main.c \
 		error.c \
 		action.c \
 		simulate.c \
-		monitor.c \
 		utils.c
 
 OBJS_DIR := objs/

@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 00:57:00 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/02/22 00:57:03 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:32:02 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_philo_dto	input_arguments(char **av)
 {
 	t_philo_dto	args;
 
-	args.num_of_philosophers = convert_str_to_int(av[1]);
+	args.num_of_philos = convert_str_to_int(av[1]);
 	args.time_to_die = convert_str_to_int(av[2]);
 	args.time_to_eat = convert_str_to_int(av[3]);
 	args.time_to_sleep = convert_str_to_int(av[4]);
