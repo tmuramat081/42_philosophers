@@ -20,6 +20,6 @@ void	put_timestamp(char *string, t_philosopher *philo)
 	long	now;
 
 	now = gettime_ms();
-	elapsed_time = get_elapsed_time(philo->start_time, now);
+	elapsed_time = get_elapsed_time(philo->started_at, now);
 	printf("%ld %zu %s\n", elapsed_time, philo->id + 1, string);
 }

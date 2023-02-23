@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 00:36:29 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/02/23 21:39:10 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:54:57 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	*monitor(void *p_waiter)
 		i = 0;
 		while (i < waiter->num_of_philos)
 		{
-			elapsed = get_elapsed_time(philos[i].time_last_eaten, gettime_ms());
+			elapsed = get_elapsed_time(philos[i].last_eat_at, gettime_ms());
 			if (elapsed > (long)waiter->time_to_eat)
 			{
-				put_timestamp(MSG_DIED, &philos[i]);
 				pthread_mutex_unlock(&waiter->is_end);
+				put_timestamp(MSG_DIED, &philos[i]);
 				return (NULL);
 			}
 			i++;
@@ -43,12 +43,12 @@ void	start_dinner(t_philosopher *philos, t_arbitrator *waiter)
 	size_t		i;
 
 	pthread_create(&waiter->thread_id, NULL, monitor, waiter);
-	pthread_detach(waiter->thread_id);
+//	pthread_detach(waiter->thread_id);
 	i = 0;
 	while (i < waiter->num_of_philos)
 	{
 		pthread_create(&philos[i].thread_id, NULL, lifecycle, &philos[i]);
-		pthread_detach(philos[i].thread_id);
+//		pthread_detach(philos[i].thread_id);
 		i++;
 	}
 }
@@ -57,10 +57,12 @@ void	end_dinner(t_philosopher *philos, t_arbitrator *waiter)
 {
 	size_t	i;
 
+	pthread_join(waiter->thread_id, NULL);
 	pthread_mutex_destroy(&waiter->is_end);
 	i = 0;
 	while (i < waiter->num_of_philos)
 	{
+		pthread_join(philos[i].thread_id, NULL);
 		pthread_mutex_destroy(&philos[i].mutex);
 		pthread_mutex_destroy(&waiter->forks[i]);
 		i++;

@@ -5,7 +5,7 @@ t_arbitrator	init_waiter(t_philo_dto input)
 	t_arbitrator	waiter;
 	size_t			i;
 
-	waiter.start_time = gettime_ms();
+	waiter.started_at = gettime_ms();
 	waiter.num_of_philos = input.num_of_philos;
 	waiter.time_to_die = input.time_to_die;
 	waiter.time_to_eat = input.time_to_eat;
@@ -28,12 +28,12 @@ t_philosopher	*init_philosophers(t_philo_dto input, t_arbitrator *waiter)
 	i = 0;
 	while (i < input.num_of_philos)
 	{
-		philos[i].start_time = gettime_ms();
+		philos[i].started_at = gettime_ms();
 		philos[i].id = i;
 		philos[i].fork_left = &waiter->forks[i + 1 % input.num_of_philos];
 		philos[i].fork_right = &waiter->forks[i];
 		philos[i].count_eaten = 0;
-		philos[i].time_last_eaten = philos[i].start_time;
+		philos[i].last_eat_at = philos[i].started_at;
 		philos[i].waiter = waiter;
 		pthread_mutex_init(&philos[i].mutex, NULL);
 		i++;

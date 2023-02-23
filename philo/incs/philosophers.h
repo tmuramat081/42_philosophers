@@ -47,11 +47,11 @@ struct s_philosopher
 {
 	size_t			id;
 	pthread_t		thread_id;
-	long			start_time;
+	long			started_at;
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
-	long			time_last_eaten;
+	long			last_eat_at;
 	size_t			count_eaten;
 	t_arbitrator	*waiter;
 };
@@ -59,7 +59,7 @@ struct s_philosopher
 struct s_arbitrator
 {
 	pthread_t		thread_id;
-	long			start_time;
+	long			started_at;
 	pthread_mutex_t	forks[PHILO_MAX];
 	size_t			num_of_philos;
 	size_t			time_to_die;
