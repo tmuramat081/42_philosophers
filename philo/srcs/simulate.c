@@ -12,24 +12,39 @@
 
 #include "philosophers.h"
 
-void	*monitor(void *p_waiter)
+void	*lifecycle(void *p_philo)
+{
+	t_philosopher	*philo;
+
+	philo = (t_philosopher *)p_philo;
+	while (true)
+	{
+		if (!do_eat(philo, philo->monitor)
+			|| !do_sleep(philo, philo->monitor)
+			|| !do_think(philo))
+			break ;
+	}
+	return (NULL);
+}
+
+void	*checker(void *p_monitor)
 {
 	t_philosopher	*philos;
-	t_arbitrator	*waiter;
+	t_monitor		*monitor;
 	long			elapsed;
 	size_t			i;
 
-	waiter = (t_arbitrator *)p_waiter;
-	philos = waiter->philos;
+	monitor = (t_monitor *)p_monitor;
+	philos = monitor->philos;
 	while (true)
 	{
 		i = 0;
-		while (i < waiter->num_of_philos)
+		while (i < monitor->num_of_philos)
 		{
 			elapsed = get_elapsed_time(philos[i].last_eat_at, gettime_ms());
-			if (elapsed > (long)waiter->time_to_eat)
+			if (elapsed > (long)monitor->time_to_eat)
 			{
-				pthread_mutex_unlock(&waiter->is_end);
+				monitor->is_any_died = true;
 				put_timestamp(MSG_DIED, &philos[i]);
 				return (NULL);
 			}
@@ -38,33 +53,30 @@ void	*monitor(void *p_waiter)
 	}
 }
 
-void	start_dinner(t_philosopher *philos, t_arbitrator *waiter)
+void	start_dinner(t_philosopher *philos, t_monitor *monitor)
 {
 	size_t		i;
 
-	pthread_create(&waiter->thread_id, NULL, monitor, waiter);
-//	pthread_detach(waiter->thread_id);
+	pthread_create(&monitor->thread_id, NULL, checker, monitor);
+	pthread_detach(monitor->thread_id);
 	i = 0;
-	while (i < waiter->num_of_philos)
+	while (i < monitor->num_of_philos)
 	{
 		pthread_create(&philos[i].thread_id, NULL, lifecycle, &philos[i]);
-//		pthread_detach(philos[i].thread_id);
 		i++;
 	}
 }
 
-void	end_dinner(t_philosopher *philos, t_arbitrator *waiter)
+void	end_dinner(t_philosopher *philos, t_monitor *monitor)
 {
 	size_t	i;
 
-	pthread_join(waiter->thread_id, NULL);
-	pthread_mutex_destroy(&waiter->is_end);
 	i = 0;
-	while (i < waiter->num_of_philos)
+	while (i < monitor->num_of_philos)
 	{
 		pthread_join(philos[i].thread_id, NULL);
 		pthread_mutex_destroy(&philos[i].mutex);
-		pthread_mutex_destroy(&waiter->forks[i]);
+		pthread_mutex_destroy(&monitor->forks[i]);
 		i++;
 	}
 	free(philos);
@@ -72,14 +84,12 @@ void	end_dinner(t_philosopher *philos, t_arbitrator *waiter)
 
 void	simulate_problem(t_philo_dto input)
 {
-	t_arbitrator	waiter;
+	t_monitor		monitor;
 	t_philosopher	*philos;
 
-	waiter = init_waiter(input);
-	philos = init_philosophers(input, &waiter);
-	waiter.philos = philos;
-	start_dinner(philos, &waiter);
-	pthread_mutex_lock(&waiter.is_end);
-	pthread_mutex_unlock(&waiter.is_end);
-	end_dinner(philos, &waiter);
+	monitor = init_monitor(input);
+	philos = init_philosophers(input, &monitor);
+	monitor.philos = philos;
+	start_dinner(philos, &monitor);
+	end_dinner(philos, &monitor);
 }

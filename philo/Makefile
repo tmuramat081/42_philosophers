@@ -8,8 +8,8 @@ SRCS := main.c \
 		input.c \
 		init.c \
 		error.c \
-		action.c \
 		simulate.c \
+		actions.c \
 		utils.c
 
 OBJS_DIR := objs/

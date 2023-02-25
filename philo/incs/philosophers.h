@@ -27,7 +27,7 @@
 
 typedef struct s_philo_dto		t_philo_dto;
 typedef struct timeval			t_timeval;
-typedef struct s_arbitrator		t_arbitrator;
+typedef struct s_monitor		t_monitor;
 typedef struct s_philosopher	t_philosopher;
 
 /**
@@ -53,10 +53,10 @@ struct s_philosopher
 	pthread_mutex_t	*fork_right;
 	long			last_eat_at;
 	size_t			count_eaten;
-	t_arbitrator	*waiter;
+	t_monitor		*monitor;
 };
 
-struct s_arbitrator
+struct s_monitor
 {
 	pthread_t		thread_id;
 	long			started_at;
@@ -66,20 +66,24 @@ struct s_arbitrator
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	size_t			num_of_eat;
-	pthread_mutex_t	is_end;
+	bool			is_any_died;
+	pthread_mutex_t	io;
 	t_philosopher	*philos;
 };
 
 t_philo_dto		input_arguments(char **av);
 void			simulate_problem(t_philo_dto input);
-t_arbitrator	init_waiter(t_philo_dto input);
-t_philosopher	*init_philosophers(t_philo_dto input, t_arbitrator *waiter);
+t_monitor		init_monitor(t_philo_dto input);
+t_philosopher	*init_philosophers(t_philo_dto input, t_monitor *monitor);
 void			handle_error(void);
 void			*lifecycle(void *philo);
-void			start_dinner(t_philosopher *philos, t_arbitrator *waiter);
+int				do_eat(t_philosopher *philo, t_monitor *monitor);
+int				do_sleep(t_philosopher *philo, t_monitor *monitor);
+int				do_think(t_philosopher *philo);
+void			start_dinner(t_philosopher *philos, t_monitor *monitor);
 long			gettime_ms(void);
 long			get_elapsed_time(long start_ms, long end_ms);
-void			put_timestamp(char *string, t_philosopher *philo);
-void 			*monitor(void *p_waiter);
+int				put_timestamp(char *string, t_philosopher *philo);
+void 			*monitor(void *p_monitor);
 
 #endif
