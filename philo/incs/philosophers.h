@@ -71,6 +71,12 @@ struct s_monitor
 	t_philosopher	*philos;
 };
 
+struct s_arbitrator
+{
+	pthread_t	thread_id;
+	t_deque		*queue;
+}
+
 t_philo_dto		input_arguments(char **av);
 void			simulate_problem(t_philo_dto input);
 t_monitor		init_monitor(t_philo_dto input);

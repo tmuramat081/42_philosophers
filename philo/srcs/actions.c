@@ -13,7 +13,7 @@ static int	do_pick_up_forks(t_philosopher *philo)
 	return (1);
 }
 
-int	do_take_down_forks(t_philosopher *philo)
+static int	do_take_down_forks(t_philosopher *philo)
 {
 	pthread_mutex_unlock(philo->fork_left);
 	pthread_mutex_unlock(philo->fork_right);
