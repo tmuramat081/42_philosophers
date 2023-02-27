@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include "ft_deque.h"
 
 int	main(int ac, char **av)
 {
@@ -22,3 +23,25 @@ int	main(int ac, char **av)
 	simulate_problem(args);
 	return (0);
 }
+
+/* FIFO queue test
+int main (void)
+{
+	t_deque		*queue;
+	size_t		data;
+
+	queue = ft_deque_init(sizeof(size_t), 10);
+	ft_deque_push_back(queue, &(size_t){1});
+	ft_deque_push_back(queue, &(size_t){2});
+	ft_deque_push_back(queue, &(size_t){3});
+	ft_deque_pop_front(queue, &data);
+	printf("%zu\n", data);
+	ft_deque_pop_front(queue, &data);
+	printf("%zu\n", data);
+	ft_deque_pop_front(queue, &data);
+	printf("%zu\n", data);
+	ft_deque_pop_front(queue, &data);
+	printf("%zu\n", data);
+	return (0);
+}
+*/

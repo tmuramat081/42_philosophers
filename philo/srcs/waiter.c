@@ -25,6 +25,7 @@ void	send_message(t_philosopher *philo)
 
 	waiter = philo->waiter;
 	ft_deque_lock(waiter->queue);
+	printf("send:%zu\n", philo->id);
 	ft_deque_push_back(waiter->queue, &philo->id);
 	ft_deque_unlock(waiter->queue);
 }
@@ -37,7 +38,9 @@ void	receive_message(t_philosopher *philo)
 	waiter = philo->waiter;
 	while (wait_ms(waiter))
 	{
+		printf("I'm:%zu\n", philo->id);
 		top = ft_deque_front(waiter->queue);
+		printf("receive:%zu\n", *top);
 		if (top && *top == philo->id)
 		{
 			ft_deque_lock(waiter->queue);

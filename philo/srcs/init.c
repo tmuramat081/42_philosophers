@@ -4,7 +4,7 @@ t_arbitrator	init_arbitrator(t_philo_dto input)
 {
 	t_arbitrator	waiter;
 
-	waiter.queue = ft_deque_init(sizeof(int), input.num_of_philos);
+	waiter.queue = ft_deque_init(sizeof(size_t), input.num_of_philos);
 	return (waiter);
 }
 
@@ -33,7 +33,7 @@ t_philosopher	*init_philosophers(t_philo_dto input, t_monitor *monitor,
 	t_philosopher	*philos;
 	size_t			i;
 
-	philos = malloc(sizeof(t_philosopher) * PHILO_MAX);
+	philos = malloc(sizeof(t_philosopher) * input.num_of_philos);
 	i = 0;
 	while (i < input.num_of_philos)
 	{
