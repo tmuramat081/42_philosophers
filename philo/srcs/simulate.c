@@ -27,36 +27,12 @@ void	*lifecycle(void *p_philo)
 	return (NULL);
 }
 
-void	*checker(void *p_monitor)
-{
-	t_philosopher	*philos;
-	t_monitor		*monitor;
-	long			elapsed;
-	size_t			i;
-
-	monitor = (t_monitor *)p_monitor;
-	philos = monitor->philos;
-	while (true)
-	{
-		i = 0;
-		while (i < monitor->num_of_philos)
-		{
-			elapsed = get_elapsed_time(philos[i].last_eat_at, gettime_ms());
-			if (elapsed > (long)monitor->time_to_eat)
-			{
-				monitor->is_any_died = true;
-				put_timestamp(MSG_DIED, &philos[i]);
-				return (NULL);
-			}
-			i++;
-		}
-	}
-}
-
-void	start_dinner(t_philosopher *philos, t_monitor *monitor)
+void	start_dinner(
+	t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter)
 {
 	size_t		i;
 
+	pthread_create(&waiter->thread_id, NULL, server, waiter);
 	pthread_create(&monitor->thread_id, NULL, checker, monitor);
 	pthread_detach(monitor->thread_id);
 	i = 0;
@@ -86,10 +62,13 @@ void	simulate_problem(t_philo_dto input)
 {
 	t_monitor		monitor;
 	t_philosopher	*philos;
+	t_arbitrator	waiter;
 
+	waiter = init_arbitrator(input);
 	monitor = init_monitor(input);
-	philos = init_philosophers(input, &monitor);
+	philos = init_philosophers(input, &monitor, &waiter);
 	monitor.philos = philos;
-	start_dinner(philos, &monitor);
+	waiter.monitor = &monitor;
+	start_dinner(philos, &monitor, &waiter);
 	end_dinner(philos, &monitor);
 }

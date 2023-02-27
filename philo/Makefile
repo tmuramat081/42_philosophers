@@ -10,6 +10,8 @@ SRCS := main.c \
 		error.c \
 		simulate.c \
 		actions.c \
+		waiter.c \
+		monitor.c \
 		utils.c
 
 OBJS_DIR := objs/

@@ -22,6 +22,8 @@ static int	do_take_down_forks(t_philosopher *philo)
 
 int	do_eat(t_philosopher *philo, t_monitor *monitor)
 {
+	send_message(philo);
+	receive_message(philo);
 	do_pick_up_forks(philo);
 	pthread_mutex_lock(&philo->mutex);
 	philo->last_eat_at = gettime_ms();

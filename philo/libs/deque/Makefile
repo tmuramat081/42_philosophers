@@ -8,6 +8,7 @@ SRCS := \
 	ft_deque_iterator.c \
 	ft_deque_check.c \
 	ft_deque_realloc.c \
+	ft_deque_mutex.c \
 	ft_deque_delete.c
 
 SRC_DIR := srcs/

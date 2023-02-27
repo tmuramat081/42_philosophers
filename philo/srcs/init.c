@@ -1,9 +1,17 @@
 #include "philosophers.h"
 
+t_arbitrator	init_arbitrator(t_philo_dto input)
+{
+	t_arbitrator	waiter;
+
+	waiter.queue = ft_deque_init(sizeof(int), input.num_of_philos);
+	return (waiter);
+}
+
 t_monitor	init_monitor(t_philo_dto input)
 {
 	t_monitor	monitor;
-	size_t			i;
+	size_t		i;
 
 	monitor.started_at = gettime_ms();
 	monitor.num_of_philos = input.num_of_philos;
@@ -19,7 +27,8 @@ t_monitor	init_monitor(t_philo_dto input)
 	return (monitor);
 }
 
-t_philosopher	*init_philosophers(t_philo_dto input, t_monitor *monitor)
+t_philosopher	*init_philosophers(t_philo_dto input, t_monitor *monitor,
+	t_arbitrator *waiter)
 {
 	t_philosopher	*philos;
 	size_t			i;
@@ -35,6 +44,7 @@ t_philosopher	*init_philosophers(t_philo_dto input, t_monitor *monitor)
 		philos[i].count_eaten = 0;
 		philos[i].last_eat_at = philos[i].started_at;
 		philos[i].monitor = monitor;
+		philos[i].waiter = waiter;
 		pthread_mutex_init(&philos[i].mutex, NULL);
 		i++;
 	}

@@ -24,11 +24,13 @@
 # include <pthread.h>
 # include "libft.h"
 # include "philosophers.h"
+# include "ft_deque.h"
 
 typedef struct s_philo_dto		t_philo_dto;
 typedef struct timeval			t_timeval;
 typedef struct s_monitor		t_monitor;
 typedef struct s_philosopher	t_philosopher;
+typedef struct s_arbitrator		t_arbitrator;
 
 /**
  * @brief コマンドライン引数からの取得用DTO型
@@ -54,6 +56,7 @@ struct s_philosopher
 	long			last_eat_at;
 	size_t			count_eaten;
 	t_monitor		*monitor;
+	t_arbitrator	*waiter;
 };
 
 struct s_monitor
@@ -75,21 +78,30 @@ struct s_arbitrator
 {
 	pthread_t	thread_id;
 	t_deque		*queue;
-}
+	t_monitor 	*monitor;
+};
 
 t_philo_dto		input_arguments(char **av);
 void			simulate_problem(t_philo_dto input);
 t_monitor		init_monitor(t_philo_dto input);
-t_philosopher	*init_philosophers(t_philo_dto input, t_monitor *monitor);
+t_philosopher	*init_philosophers(t_philo_dto input, t_monitor *monitor, t_arbitrator *waiter);
 void			handle_error(void);
 void			*lifecycle(void *philo);
 int				do_eat(t_philosopher *philo, t_monitor *monitor);
 int				do_sleep(t_philosopher *philo, t_monitor *monitor);
 int				do_think(t_philosopher *philo);
-void			start_dinner(t_philosopher *philos, t_monitor *monitor);
+void			start_dinner(t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter);
 long			gettime_ms(void);
 long			get_elapsed_time(long start_ms, long end_ms);
 int				put_timestamp(char *string, t_philosopher *philo);
-void 			*monitor(void *p_monitor);
+
+/** Thread for monitor */
+void			*checker(void *p_monitor);
+t_arbitrator	init_arbitrator(t_philo_dto input);
+
+/** Thread for Arbitrator (waiter) */
+void			*server(void *p_waiter);
+void			send_message(t_philosopher *philo);
+void			receive_message(t_philosopher *philo);
 
 #endif
