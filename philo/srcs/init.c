@@ -1,3 +1,4 @@
+
 #include "philosophers.h"
 
 t_arbitrator	init_arbitrator(t_philo_dto input)
@@ -5,6 +6,7 @@ t_arbitrator	init_arbitrator(t_philo_dto input)
 	t_arbitrator	waiter;
 
 	waiter.queue = ft_deque_init(sizeof(size_t), input.num_of_philos);
+	waiter.queue_max = input.num_of_philos - 1;
 	return (waiter);
 }
 

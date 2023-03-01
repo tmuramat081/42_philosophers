@@ -27,12 +27,13 @@ void	*lifecycle(void *p_philo)
 	return (NULL);
 }
 
-void	start_dinner(
+void	create_threads(
 	t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter)
 {
 	size_t		i;
 
 	pthread_create(&waiter->thread_id, NULL, server, waiter);
+	pthread_detach(waiter->thread_id);
 	pthread_create(&monitor->thread_id, NULL, checker, monitor);
 	pthread_detach(monitor->thread_id);
 	i = 0;
@@ -43,7 +44,7 @@ void	start_dinner(
 	}
 }
 
-void	end_dinner(t_philosopher *philos, t_monitor *monitor)
+void	destroy_threads(t_philosopher *philos, t_monitor *monitor)
 {
 	size_t	i;
 
@@ -69,6 +70,6 @@ void	simulate_problem(t_philo_dto input)
 	philos = init_philosophers(input, &monitor, &waiter);
 	monitor.philos = philos;
 	waiter.monitor = &monitor;
-	start_dinner(philos, &monitor, &waiter);
-	end_dinner(philos, &monitor);
+	create_threads(philos, &monitor, &waiter);
+	destroy_threads(philos, &monitor);
 }

@@ -78,6 +78,7 @@ struct s_arbitrator
 {
 	pthread_t	thread_id;
 	t_deque		*queue;
+	size_t		queue_max;
 	t_monitor 	*monitor;
 };
 
@@ -85,15 +86,17 @@ t_philo_dto		input_arguments(char **av);
 void			simulate_problem(t_philo_dto input);
 t_monitor		init_monitor(t_philo_dto input);
 t_philosopher	*init_philosophers(t_philo_dto input, t_monitor *monitor, t_arbitrator *waiter);
-void			handle_error(void);
-void			*lifecycle(void *philo);
-int				do_eat(t_philosopher *philo, t_monitor *monitor);
-int				do_sleep(t_philosopher *philo, t_monitor *monitor);
-int				do_think(t_philosopher *philo);
+int				handle_error(void);
 void			start_dinner(t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter);
 long			gettime_ms(void);
 long			get_elapsed_time(long start_ms, long end_ms);
 int				put_timestamp(char *string, t_philosopher *philo);
+
+/** Thread for philosophers */
+void			*lifecycle(void *philo);
+int				do_eat(t_philosopher *philo, t_monitor *monitor);
+int				do_sleep(t_philosopher *philo, t_monitor *monitor);
+int				do_think(t_philosopher *philo);
 
 /** Thread for monitor */
 void			*checker(void *p_monitor);
@@ -103,5 +106,9 @@ t_arbitrator	init_arbitrator(t_philo_dto input);
 void			*server(void *p_waiter);
 void			send_message(t_philosopher *philo);
 void			receive_message(t_philosopher *philo);
+
+/** libft functions */
+long			ft_strtol_d(const char *nptr, char **endp);
+
 
 #endif

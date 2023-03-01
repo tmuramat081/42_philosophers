@@ -25,13 +25,11 @@ int	do_eat(t_philosopher *philo, t_monitor *monitor)
 	send_message(philo);
 	receive_message(philo);
 	do_pick_up_forks(philo);
-	pthread_mutex_lock(&philo->mutex);
 	philo->last_eat_at = gettime_ms();
 	if (!put_timestamp(MSG_EATING, philo))
 		return (0);
 	usleep(monitor->time_to_eat * 1000);
 	philo->count_eaten++;
-	pthread_mutex_unlock(&philo->mutex);
 	do_take_down_forks(philo);
 	return (1);
 }

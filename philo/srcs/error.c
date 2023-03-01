@@ -1,6 +1,7 @@
 #include "philosophers.h"
 
-void	handle_error(void)
+int	handle_error(void)
 {
-	exit(EXIT_FAILURE);
+	printf("Invalid arguments.\n");
+	return (0);
 }
