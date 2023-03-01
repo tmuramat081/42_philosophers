@@ -3,7 +3,6 @@
 
 bool	wait_ms(t_arbitrator *waiter)
 {
-	usleep(100);
 	if (waiter->monitor->is_any_died == true)
 		return (false);
 	return (true);
@@ -24,7 +23,7 @@ void	send_message(t_philosopher *philo)
 	t_arbitrator	*waiter;
 
 	waiter = philo->waiter;
-	if (ft_deque_size(waiter->queue) >= waiter->queue_max - 1)
+	if (ft_deque_size(waiter->queue) >= waiter->queue_max)
 		return ;
 	ft_deque_lock(waiter->queue);
 	ft_deque_push_back(waiter->queue, &philo->id);
@@ -42,7 +41,6 @@ void	receive_message(t_philosopher *philo)
 		top = ft_deque_front(waiter->queue);
 		if (top && *top == philo->id)
 		{
-			printf("auth:%zu\n", (*top) + 1);
 			ft_deque_lock(waiter->queue);
 			ft_deque_pop_back(waiter->queue, top);
 			ft_deque_unlock(waiter->queue);

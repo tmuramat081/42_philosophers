@@ -31,7 +31,7 @@ void	*checker(void *p_monitor)
 		while (i < monitor->num_of_philos)
 		{
 			elapsed = get_elapsed_time(philos[i].last_eat_at, gettime_ms());
-			if (elapsed > (long)monitor->time_to_eat)
+			if (elapsed > (long)monitor->time_to_die)
 			{
 				monitor->is_any_died = true;
 				dead_timestamp(MSG_DIED, &philos[i]);
