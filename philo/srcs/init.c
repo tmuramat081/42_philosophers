@@ -21,7 +21,7 @@ t_monitor	init_monitor(t_philo_dto input)
 	monitor.time_to_eat = input.time_to_eat;
 	monitor.time_to_sleep = input.time_to_sleep;
 	monitor.num_of_eat = input.num_of_eating;
-	monitor.is_any_died = false;
+	monitor.is_sim_over = false;
 	i = 0;
 	while (i < input.num_of_philos)
 		pthread_mutex_init(&monitor.forks[i++], NULL);

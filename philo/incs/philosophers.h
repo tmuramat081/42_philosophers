@@ -42,7 +42,7 @@ struct s_philo_dto
 	size_t	time_to_die;
 	size_t	time_to_eat;
 	size_t	time_to_sleep;
-	size_t	num_of_eating;
+	long	num_of_eating;
 };
 
 struct s_philosopher
@@ -68,8 +68,8 @@ struct s_monitor
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			num_of_eat;
-	bool			is_any_died;
+	long			num_of_eat;
+	bool			is_sim_over;
 	pthread_mutex_t	io;
 	t_philosopher	*philos;
 };

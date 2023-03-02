@@ -29,8 +29,8 @@ int	do_eat(t_philosopher *philo, t_monitor *monitor)
 	if (!put_timestamp(MSG_EATING, philo))
 		return (0);
 	usleep(monitor->time_to_eat * 1000);
-	philo->count_eaten++;
 	do_take_down_forks(philo);
+	philo->count_eaten++;
 	return (1);
 }
 

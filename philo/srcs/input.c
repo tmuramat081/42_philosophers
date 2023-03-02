@@ -38,6 +38,6 @@ t_philo_dto	input_arguments(char **av)
 	if (av[5])
 		args.num_of_eating = convert_str_to_int(av[5]);
 	else
-		args.num_of_eating = 0;
+		args.num_of_eating = -1;
 	return (args);
 }

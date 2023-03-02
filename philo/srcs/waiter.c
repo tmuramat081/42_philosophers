@@ -3,7 +3,7 @@
 
 bool	wait_ms(t_arbitrator *waiter)
 {
-	if (waiter->monitor->is_any_died == true)
+	if (waiter->monitor->is_sim_over == true)
 		return (false);
 	return (true);
 }

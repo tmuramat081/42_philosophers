@@ -21,7 +21,7 @@ int	put_timestamp(char *string, t_philosopher *philo)
 	now = gettime_ms();
 	elapsed_time = get_elapsed_time(philo->started_at, now);
 	pthread_mutex_lock(&philo->monitor->io);
-	if (philo->monitor->is_any_died == true)
+	if (philo->monitor->is_sim_over == true)
 	{
 		pthread_mutex_unlock(&philo->monitor->io);
 		return (0);
