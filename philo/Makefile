@@ -9,9 +9,10 @@ SRCS := main.c \
 		init.c \
 		error.c \
 		simulate.c \
-		actions.c \
-		waiter.c \
-		monitor.c \
+		philosophers/actions.c \
+		philosophers/lifecycle.c \
+		arbitrator/waiter.c \
+		monitor/monitor.c \
 		utils.c
 
 OBJS_DIR := objs/
@@ -23,9 +24,6 @@ LIBFT := ${LIBFT_DIR}libft.a
 
 LIBDEQUE_DIR := libs/deque/
 LIBDEQUE := ${LIBDEQUE_DIR}libdeque.a
-
-LIBPQUEUE_DIR := libs/priority_queue/
-LIBPQUEUE := ${LIBPQUEUE_DIR}libpqueue.a
 
 INCS := -I./incs/ -I./${LIBFT_DIR}incs/ -I./${LIBDEQUE_DIR}incs/ \
 	-I./${LIBPQUEUE_DIR}incs/
@@ -52,7 +50,7 @@ PROGRESS = ${eval SRC_CNT = ${shell expr ${SRC_CNT} + 1}} \
 	$(SRC_CNT) $(SRC_TOT) $(SRC_PCT)
 
 # Main commands
-${NAME}: ${LIBFT} ${LIBDEQUE} ${LIBPQUEUE} ${OBJS}
+${NAME}: ${LIBFT} ${LIBDEQUE} ${OBJS}
 	@${CC} ${CFLAGS} ${INCS} ${OBJS} ${LIBFT} ${LIBDEQUE} ${LIBPQUEUE} -o $@
 	@echo "\n${BLUE}--- ${NAME} is up to date! ---${DEFAULT}"
 
@@ -79,14 +77,12 @@ clean:
 	${RM} ${OBJS} ${DEPS}
 	@${MAKE} clean -C ${LIBFT_DIR} --no-print-directory
 	@${MAKE} clean -C ${LIBDEQUE_DIR} --no-print-directory
-	@${MAKE} clean -C ${LIBPQUEUE_DIR} --no-print-directory
 
 #: Remove all object and executable files.
 fclean:	clean
 	${RM} ${NAME}
 	${RM} ${LIBFT}
 	${RM} ${LIBDEQUE}
-	${RM} ${LIBPQUEUE}
 
 #: Remove and recompile all.
 re: fclean
