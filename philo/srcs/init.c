@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/03 22:49:45 by tmuramat          #+#    #+#             */
+/*   Updated: 2023/03/03 23:30:25 by tmuramat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
@@ -7,6 +18,7 @@ t_arbitrator	init_arbitrator(t_philo_dto input)
 
 	waiter.queue = ft_deque_init(sizeof(size_t), input.num_of_philos);
 	waiter.queue_max = input.num_of_philos - 1;
+	waiter.is_alarm = false;
 	return (waiter);
 }
 
