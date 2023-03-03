@@ -52,3 +52,7 @@ Mkfile.old
 dkms.conf
 
 philo/srcs/simulate.c
+philo/test.sh
+philo/philo
+philo/log
+philo/philo

@@ -6,26 +6,11 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 00:36:29 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/02/24 00:54:57 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/03 23:43:31 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	*lifecycle(void *p_philo)
-{
-	t_philosopher	*philo;
-
-	philo = (t_philosopher *)p_philo;
-	while (true)
-	{
-		if (!do_eat(philo, philo->monitor)
-			|| !do_sleep(philo, philo->monitor)
-			|| !do_think(philo))
-			break ;
-	}
-	return (NULL);
-}
 
 void	create_threads(
 	t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter)

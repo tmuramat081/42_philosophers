@@ -22,6 +22,7 @@
 
 # include <libc.h>
 # include <pthread.h>
+# include <assert.h>
 # include "libft.h"
 # include "philosophers.h"
 # include "ft_deque.h"
@@ -79,7 +80,8 @@ struct s_arbitrator
 	pthread_t	thread_id;
 	t_deque		*queue;
 	size_t		queue_max;
-	t_monitor 	*monitor;
+	bool		is_alarm;
+	t_monitor	*monitor;
 };
 
 t_philo_dto		input_arguments(char **av);

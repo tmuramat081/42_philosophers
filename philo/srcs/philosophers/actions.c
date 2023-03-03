@@ -34,7 +34,6 @@ static int	do_take_down_forks(t_philosopher *philo)
 
 int	do_eat(t_philosopher *philo, t_monitor *monitor)
 {
-	send_message(philo);
 	receive_message(philo);
 	do_pick_up_forks(philo);
 	philo->last_eat_at = gettime_ms();
@@ -43,6 +42,7 @@ int	do_eat(t_philosopher *philo, t_monitor *monitor)
 	usleep(monitor->time_to_eat * 1000);
 	do_take_down_forks(philo);
 	philo->count_eaten++;
+	send_message(philo);
 	return (1);
 }
 

@@ -27,10 +27,8 @@ void	*server(void	*p_waiter)
 	waiter = p_waiter;
 	while (wait_ms(waiter))
 	{
-		if (ft_deque_size(waiter->queue) >= waiter->queue_max)
-			waiter->is_alarm = true;
-		else if (ft_deque_size(waiter->queue) == 0)
-			waiter->is_alarm = false;
+		;
+	//	printf("size=%zu\n", ft_deque_size(waiter->queue));
 	}
 	return (NULL);
 }
@@ -40,8 +38,6 @@ void	send_message(t_philosopher *philo)
 	t_arbitrator	*waiter;
 
 	waiter = philo->waiter;
-	if (philo->waiter->is_alarm == true)
-		return ;
 	ft_deque_lock(waiter->queue);
 	ft_deque_push_back(waiter->queue, &philo->id);
 	ft_deque_unlock(waiter->queue);
@@ -55,14 +51,16 @@ void	receive_message(t_philosopher *philo)
 	waiter = philo->waiter;
 	while (wait_ms(waiter))
 	{
+		ft_deque_lock(waiter->queue);
+		top = NULL;
 		top = ft_deque_front(waiter->queue);
 		if (top && *top == philo->id)
 		{
-			ft_deque_lock(waiter->queue);
+			printf("%zu\n", *top);
 			ft_deque_pop_front(waiter->queue, top);
 			ft_deque_unlock(waiter->queue);
 			break ;
 		}
-		top = NULL;
+		ft_deque_unlock(waiter->queue);
 	}
 }
