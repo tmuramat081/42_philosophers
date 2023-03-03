@@ -7,13 +7,13 @@ SRCS_DIR := srcs/
 SRCS := main.c \
 		input.c \
 		init.c \
-		error.c \
 		simulate.c \
 		philosophers/actions.c \
 		philosophers/lifecycle.c \
 		arbitrator/waiter.c \
 		monitor/monitor.c \
-		utils.c
+		utils/time.c \
+		utils/error.c
 
 OBJS_DIR := objs/
 OBJS := ${addprefix ${OBJS_DIR},${SRCS:.c=.o}}
