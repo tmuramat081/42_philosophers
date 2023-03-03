@@ -11,20 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_deque.h"
-
-static void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	unsigned char	*cast_d;
-	unsigned char	*cast_s;
-
-	if (!dst && !src)
-		return (NULL);
-	cast_d = (unsigned char *)dst;
-	cast_s = (unsigned char *)src;
-	while (n--)
-		*(cast_d++) = *(cast_s++);
-	return (dst);
-}
+#include <string.h>
 
 static void	*ft_realloc(void *ptr, size_t size)
 {
@@ -37,7 +24,7 @@ static void	*ft_realloc(void *ptr, size_t size)
 	new_ptr = malloc(size);
 	if (!new_ptr)
 		return (NULL);
-	ft_memcpy (new_ptr, ptr, size);
+	memcpy (new_ptr, ptr, size);
 	free(ptr);
 	ptr = new_ptr;
 	return (ptr);
