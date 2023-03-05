@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:27 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/03 22:49:28 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/05 21:58:51 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ static int	do_take_down_forks(t_philosopher *philo)
 
 int	do_eat(t_philosopher *philo, t_monitor *monitor)
 {
-	receive_message(philo);
-	do_pick_up_forks(philo);
+	if (!receive_message(philo))
+		return (0);
+	if (!do_pick_up_forks(philo))
+		return (0);
 	philo->last_eat_at = gettime_ms();
 	if (!put_timestamp(MSG_EATING, philo))
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lifecycle.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:27 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/03 22:49:28 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/05 23:21:12 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*lifecycle(void *p_philo)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *)p_philo;
+//	if (philo->id % 2 == 1)
+//		usleep(100);
 	send_message(philo);
 	while (true)
 	{

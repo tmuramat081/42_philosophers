@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 01:48:15 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/03 02:09:34 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/05 21:50:22 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	dead_timestamp(char *string, t_philosopher *philo)
 {
 	long	elapsed_time;
-	long	now;
 
-	now = gettime_ms();
-	elapsed_time = get_elapsed_time(philo->started_at, now);
+	elapsed_time = get_elapsed_time(philo->started_at, gettime_ms());
 	pthread_mutex_lock(&philo->monitor->io);
 	printf("%ld %zu %s\n", elapsed_time, philo->id + 1, string);
 	pthread_mutex_unlock(&philo->monitor->io);

@@ -107,7 +107,7 @@ t_arbitrator	init_arbitrator(t_philo_dto input);
 /** Thread for Arbitrator (waiter) */
 void			*server(void *p_waiter);
 void			send_message(t_philosopher *philo);
-void			receive_message(t_philosopher *philo);
+int				receive_message(t_philosopher *philo);
 
 /** libft functions */
 long			ft_strtol_d(const char *nptr, char **endp);
