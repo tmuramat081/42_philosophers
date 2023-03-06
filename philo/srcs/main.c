@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-/* FIFO queue test
+/**
 int main (void)
 {
 	t_deque		*queue;
@@ -44,4 +44,5 @@ int main (void)
 	printf("%zu\n", data);
 	return (0);
 }
+
 */

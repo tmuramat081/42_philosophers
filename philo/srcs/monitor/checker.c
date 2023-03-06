@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 01:48:15 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/05 21:50:22 by event            ###   ########.fr       */
+/*   Updated: 2023/03/03 02:09:34 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	dead_timestamp(char *string, t_philosopher *philo)
 {
 	long	elapsed_time;
+	long	now;
 
-	elapsed_time = get_elapsed_time(philo->started_at, gettime_ms());
+	now = gettime_ms();
+	elapsed_time = get_elapsed_time(philo->started_at, now);
 	pthread_mutex_lock(&philo->monitor->io);
 	printf("%ld %zu %s\n", elapsed_time, philo->id + 1, string);
 	pthread_mutex_unlock(&philo->monitor->io);
@@ -34,13 +36,19 @@ static bool	is_philo_full(t_monitor *monitor, t_philosopher *philos)
 	cnt_full = 0;
 	while (i < monitor->num_of_philos)
 	{
+		pthread_mutex_lock(&philos[i].mutex);
 		if (philos[i].count_eaten >= (size_t)monitor->num_of_eat)
+		{
 			cnt_full++;
+		}
+		pthread_mutex_unlock(&philos[i].mutex);
 		i++;
 	}
 	if (cnt_full >= monitor->num_of_philos)
 	{
+		pthread_mutex_lock(&philos[i].mutex);
 		monitor->is_sim_over = true;
+		pthread_mutex_unlock(&philos[i].mutex);
 		return (true);
 	}
 	return (false);
@@ -54,13 +62,16 @@ static bool	is_philo_dead(t_monitor *monitor, t_philosopher *philos)
 	i = 0;
 	while (i < monitor->num_of_philos)
 	{
+		pthread_mutex_lock(&philos[i].mutex);
 		elapsed = get_elapsed_time(philos[i].last_eat_at, gettime_ms());
 		if (elapsed > (long)monitor->time_to_die)
 		{
 			monitor->is_sim_over = true;
 			dead_timestamp(MSG_DIED, &philos[i]);
+			pthread_mutex_unlock(&philos[i].mutex);
 			return (true);
 		}
+		pthread_mutex_unlock(&philos[i].mutex);
 		i++;
 	}
 	return (false);
@@ -81,4 +92,3 @@ void	*checker(void *p_monitor)
 	}
 	return (NULL);
 }
-

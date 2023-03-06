@@ -1,6 +1,7 @@
 # Compile variables
 NAME := philo
-CC := gcc -g -fsanitize=address
+CC := gcc -g
+# -fsanitize=thread -pthread
 CFLAGS := -Wall -Wextra -Werror
 
 SRCS_DIR := srcs/
@@ -11,21 +12,22 @@ SRCS := main.c \
 		philosophers/actions.c \
 		philosophers/lifecycle.c \
 		arbitrator/waiter.c \
-		monitor/monitor.c \
+		monitor/checker.c \
 		utils/time.c \
-		utils/error.c
+		utils/error.c \
+		utils/ft_strtol_d.c \
+		utils/ft_realloc.c \
+		utils/ft_isspace.c \
+		utils/ft_isdigit.c
 
 OBJS_DIR := objs/
 OBJS := ${addprefix ${OBJS_DIR},${SRCS:.c=.o}}
 DEPS := ${addprefix ${OBJS_DIR},${SRCS:.c=.d}}
 
-LIBFT_DIR := libs/ft/
-LIBFT := ${LIBFT_DIR}libft.a
-
 LIBDEQUE_DIR := libs/deque/
 LIBDEQUE := ${LIBDEQUE_DIR}libdeque.a
 
-INCS := -I./incs/ -I./${LIBFT_DIR}incs/ -I./${LIBDEQUE_DIR}incs/ \
+INCS := -I./incs/ -I./${LIBDEQUE_DIR}incs/ \
 	-I./${LIBPQUEUE_DIR}incs/
 
 # Print variables
@@ -50,12 +52,9 @@ PROGRESS = ${eval SRC_CNT = ${shell expr ${SRC_CNT} + 1}} \
 	$(SRC_CNT) $(SRC_TOT) $(SRC_PCT)
 
 # Main commands
-${NAME}: ${LIBFT} ${LIBDEQUE} ${OBJS}
+${NAME}: ${LIBDEQUE} ${OBJS}
 	@${CC} ${CFLAGS} ${INCS} ${OBJS} ${LIBFT} ${LIBDEQUE} ${LIBPQUEUE} -o $@
 	@echo "\n${BLUE}--- ${NAME} is up to date! ---${DEFAULT}"
-
-${LIBFT}:
-	@${MAKE} -C ${LIBFT_DIR} --no-print-directory
 
 ${LIBDEQUE}:
 	@${MAKE} -C ${LIBDEQUE_DIR} --no-print-directory
@@ -75,13 +74,11 @@ all: ${NAME}
 #: Remove all object files.
 clean:
 	${RM} ${OBJS} ${DEPS}
-	@${MAKE} clean -C ${LIBFT_DIR} --no-print-directory
 	@${MAKE} clean -C ${LIBDEQUE_DIR} --no-print-directory
 
 #: Remove all object and executable files.
 fclean:	clean
 	${RM} ${NAME}
-	${RM} ${LIBFT}
 	${RM} ${LIBDEQUE}
 
 #: Remove and recompile all.

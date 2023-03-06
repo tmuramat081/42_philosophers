@@ -38,7 +38,9 @@ int	do_eat(t_philosopher *philo, t_monitor *monitor)
 		return (0);
 	if (!do_pick_up_forks(philo))
 		return (0);
+	pthread_mutex_lock(&philo->mutex);
 	philo->last_eat_at = gettime_ms();
+	pthread_mutex_unlock(&philo->mutex);
 	if (!put_timestamp(MSG_EATING, philo))
 		return (0);
 	usleep(monitor->time_to_eat * 1000);

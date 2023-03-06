@@ -23,7 +23,6 @@
 # include <libc.h>
 # include <pthread.h>
 # include <assert.h>
-# include "libft.h"
 # include "philosophers.h"
 # include "ft_deque.h"
 
@@ -79,15 +78,14 @@ struct s_arbitrator
 {
 	pthread_t	thread_id;
 	t_deque		*queue;
-	size_t		queue_max;
-	bool		is_alarm;
 	t_monitor	*monitor;
 };
 
 t_philo_dto		input_arguments(char **av);
 void			simulate_problem(t_philo_dto input);
 t_monitor		init_monitor(t_philo_dto input);
-t_philosopher	*init_philosophers(t_philo_dto input, t_monitor *monitor, t_arbitrator *waiter);
+void			init_philosophers(t_philosopher philo[200], \
+	t_philo_dto input, t_monitor *monitor, t_arbitrator *waiter);
 int				handle_error(void);
 void			start_dinner(t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter);
 long			gettime_ms(void);
@@ -111,6 +109,7 @@ int				receive_message(t_philosopher *philo);
 
 /** libft functions */
 long			ft_strtol_d(const char *nptr, char **endp);
-
+int				ft_isspace(int c);
+int				ft_isdigit(int c);
 
 #endif

@@ -41,18 +41,17 @@ void	destroy_threads(t_philosopher *philos, t_monitor *monitor)
 		pthread_mutex_destroy(&monitor->forks[i]);
 		i++;
 	}
-	free(philos);
 }
 
 void	simulate_problem(t_philo_dto input)
 {
 	t_monitor		monitor;
-	t_philosopher	*philos;
 	t_arbitrator	waiter;
+	t_philosopher	philos[PHILO_MAX];
 
 	waiter = init_arbitrator(input);
 	monitor = init_monitor(input);
-	philos = init_philosophers(input, &monitor, &waiter);
+	init_philosophers(philos, input, &monitor, &waiter);
 	monitor.philos = philos;
 	waiter.monitor = &monitor;
 	create_threads(philos, &monitor, &waiter);

@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lifecycle.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 22:49:27 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/05 23:21:12 by event            ###   ########.fr       */
+/*   Created: 2022/02/25 19:48:12 by tmuramat          #+#    #+#             */
+/*   Updated: 2022/02/25 19:48:13 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*lifecycle(void *p_philo)
+int	ft_isdigit(int c)
 {
-	t_philosopher	*philo;
-
-	philo = (t_philosopher *)p_philo;
-	send_message(philo);
-	while (true)
+	if ('0' <= c && c <= '9')
 	{
-		if (!do_think(philo)
-			|| !do_eat(philo, philo->monitor)
-			|| !do_sleep(philo, philo->monitor))
-			break ;
+		return (1);
 	}
-	return (NULL);
+	return (0);
 }

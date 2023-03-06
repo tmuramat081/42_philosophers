@@ -51,11 +51,7 @@ int	receive_message(t_philosopher *philo)
 		if (!_is_over(waiter))
 			return (0);
 		if (ft_deque_size(waiter->queue) <= 1)
-		{
-			usleep(10000);
 			continue ;
-		}
-		ft_deque_lock(waiter->queue);
 		top = ft_deque_front(waiter->queue);
 		if (top && *top == philo->id)
 		{
