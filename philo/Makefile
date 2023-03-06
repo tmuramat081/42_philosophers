@@ -1,7 +1,6 @@
 # Compile variables
 NAME := philo
-CC := gcc -g
-# -fsanitize=thread -pthread
+CC := gcc -g -fsanitize=thread -pthread
 CFLAGS := -Wall -Wextra -Werror
 
 SRCS_DIR := srcs/
@@ -12,11 +11,13 @@ SRCS := main.c \
 		philosophers/actions.c \
 		philosophers/lifecycle.c \
 		arbitrator/waiter.c \
+		arbitrator/message.c \
 		monitor/checker.c \
+		monitor/check_death.c \
+		monitor/check_full.c \
 		utils/time.c \
 		utils/error.c \
 		utils/ft_strtol_d.c \
-		utils/ft_realloc.c \
 		utils/ft_isspace.c \
 		utils/ft_isdigit.c
 

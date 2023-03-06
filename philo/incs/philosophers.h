@@ -100,9 +100,12 @@ int				do_think(t_philosopher *philo);
 
 /** Thread for monitor */
 void			*checker(void *p_monitor);
-t_arbitrator	init_arbitrator(t_philo_dto input);
+bool			is_philo_dead(t_monitor *monitor, t_philosopher *philos);
+bool			is_philo_full(t_monitor *monitor, t_philosopher *philos);
+int				dead_timestamp(char *string, t_philosopher *philo);
 
 /** Thread for Arbitrator (waiter) */
+t_arbitrator	init_arbitrator(t_philo_dto input);
 void			*server(void *p_waiter);
 void			send_message(t_philosopher *philo);
 int				receive_message(t_philosopher *philo);
