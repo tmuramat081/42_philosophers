@@ -110,9 +110,10 @@ void			*server(void *p_waiter);
 void			send_message(t_philosopher *philo);
 int				receive_message(t_philosopher *philo);
 
-/** libft functions */
+/** Util functions */
 long			ft_strtol_d(const char *nptr, char **endp);
 int				ft_isspace(int c);
 int				ft_isdigit(int c);
+void			ft_sleep(long time_to_wait);
 
 #endif

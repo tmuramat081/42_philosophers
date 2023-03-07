@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:45 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/03 23:30:25 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/07 23:23:17 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_philosophers(t_philosopher *philos, t_philo_dto input,
 		philos[i].monitor = monitor;
 		philos[i].waiter = waiter;
 		pthread_mutex_init(&philos[i].mutex, NULL);
+		send_message(&philos[i]);
 		i++;
 	}
 }

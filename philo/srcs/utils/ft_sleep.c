@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lifecycle.c                                        :+:      :+:    :+:   */
+/*   ft_sleep.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 22:49:27 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/07 23:19:34 by tmuramat         ###   ########.fr       */
+/*   Created: 2023/03/07 23:14:42 by tmuramat          #+#    #+#             */
+/*   Updated: 2023/03/08 02:11:18 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*lifecycle(void *p_philo)
+void	ft_sleep(long time_to_wait)
 {
-	t_philosopher	*philo;
+	long	start;
 
-	philo = (t_philosopher *)p_philo;
+	start = gettime_ms();
 	while (true)
 	{
-		if (!do_think(philo)
-			|| !do_eat(philo, philo->monitor)
-			|| !do_sleep(philo, philo->monitor))
+		if (get_elapsed_time(start, gettime_ms()) >= time_to_wait)
 			break ;
+		usleep(10);
 	}
-	return (NULL);
 }
