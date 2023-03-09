@@ -6,12 +6,19 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:58 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 00:08:29 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 01:29:24 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief シミュレーションの終了判定
+ *
+ * @param waiter
+ * @return true シミュレーション終了
+ * @return false シミュレーション継続
+ */
 static bool	_is_over(t_arbitrator *waiter)
 {
 	if (waiter->monitor->is_sim_over == true)
@@ -19,6 +26,11 @@ static bool	_is_over(t_arbitrator *waiter)
 	return (true);
 }
 
+/**
+ * @brief 食事許可キューの送信
+ *
+ * @param philo
+ */
 void	send_message(t_philosopher *philo)
 {
 	t_arbitrator	*waiter;
@@ -29,6 +41,12 @@ void	send_message(t_philosopher *philo)
 	ft_deque_unlock(waiter->queue);
 }
 
+/**
+ * @brief 食事許可キューの受信
+ *
+ * @param philo
+ * @return int
+ */
 int	receive_message(t_philosopher *philo)
 {
 	t_arbitrator	*waiter;
@@ -50,6 +68,5 @@ int	receive_message(t_philosopher *philo)
 		}
 		ft_deque_unlock(waiter->queue);
 	}
-	usleep(100);
 	return (1);
 }

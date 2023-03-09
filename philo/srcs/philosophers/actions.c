@@ -6,13 +6,19 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:27 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 00:28:16 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 01:40:19 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <pthread.h>
 
+/**
+ * @brief 哲学者：フォークを取る
+ *
+ * @param philo
+ * @return int
+ */
 static int	do_pick_up_forks(t_philosopher *philo)
 {
 	pthread_mutex_lock(philo->fork_left);
@@ -24,6 +30,12 @@ static int	do_pick_up_forks(t_philosopher *philo)
 	return (1);
 }
 
+/**
+ * @brief 哲学者：フォークを置く
+ *
+ * @param philo
+ * @return int
+ */
 static int	do_take_down_forks(t_philosopher *philo)
 {
 	pthread_mutex_unlock(philo->fork_left);
@@ -31,6 +43,13 @@ static int	do_take_down_forks(t_philosopher *philo)
 	return (0);
 }
 
+/**
+ * @brief 哲学者：食事
+ *
+ * @param philo 哲学者への参照アドレス
+ * @param monitor　モニターへの参照アドレス
+ * @return int　正常に食事を行なった場合は1, 動作の前に死を迎えた場合は0を返す。
+ */
 int	do_eat(t_philosopher *philo, t_monitor *monitor)
 {
 	if (!receive_message(philo))
@@ -49,6 +68,13 @@ int	do_eat(t_philosopher *philo, t_monitor *monitor)
 	return (1);
 }
 
+/**
+ * @brief 哲学者：睡眠
+ *
+ * @param philo
+ * @param monitor
+ * @return int
+ */
 int	do_sleep(t_philosopher *philo, t_monitor *monitor)
 {
 	if (!put_timestamp(MSG_SLEEPING, philo))
@@ -57,6 +83,12 @@ int	do_sleep(t_philosopher *philo, t_monitor *monitor)
 	return (1);
 }
 
+/**
+ * @brief 哲学者：思考
+ *
+ * @param philo
+ * @return int
+ */
 int	do_think(t_philosopher *philo)
 {
 	if (!put_timestamp(MSG_THINKING, philo))

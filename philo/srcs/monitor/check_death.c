@@ -6,12 +6,20 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:53 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/07 23:14:54 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 01:37:22 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief 哲学者の死亡判定
+ *
+ * @param monitor モニターへの参照アドレス
+ * @param philos 哲学者への参照アドレス
+ * @return true　いずれかの哲学者が死を迎えた
+ * @return false　いずれの哲学者も死を迎えていない
+ */
 bool	is_philo_dead(t_monitor *monitor, t_philosopher *philos)
 {
 	long	elapsed;

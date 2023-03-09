@@ -6,12 +6,20 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:51 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 00:28:09 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 01:34:27 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief 哲学者の満腹判定
+ *
+ * @param monitor モニターへの参照アドレス
+ * @param philos　哲学者への参照アドレス
+ * @return true すべての哲学者が必要な食事回数に達した
+ * @return false　すべての哲学者が必要な食事回数に達していない
+ */
 bool	is_philo_full(t_monitor *monitor, t_philosopher *philos)
 {
 	size_t	i;
@@ -25,9 +33,7 @@ bool	is_philo_full(t_monitor *monitor, t_philosopher *philos)
 	{
 		pthread_mutex_lock(&philos[i].mutex);
 		if (philos[i].count_eaten >= (size_t)monitor->num_of_eat)
-		{
 			cnt_full++;
-		}
 		pthread_mutex_unlock(&philos[i].mutex);
 		i++;
 	}

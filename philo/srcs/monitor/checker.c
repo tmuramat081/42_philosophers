@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor.c                                          :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 01:48:15 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/03 02:09:34 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 01:41:13 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int	dead_timestamp(char *string, t_philosopher *philo)
 	return (1);
 }
 
+/**
+ * @brief 哲学者の状態監視
+ *
+ * @param p_monitor モニターへの参照アドレス
+ * @return void*
+ */
 void	*checker(void *p_monitor)
 {
 	t_philosopher	*philos;
