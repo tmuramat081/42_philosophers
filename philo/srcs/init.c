@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:45 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/07 23:23:17 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 00:22:50 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_monitor	init_monitor(t_philo_dto input)
 	monitor.num_of_eat = input.num_of_eating;
 	monitor.is_sim_over = false;
 	i = 0;
-	while (i < input.num_of_philos)
+	while (i < (size_t)input.num_of_philos)
 		pthread_mutex_init(&monitor.forks[i++], NULL);
 	pthread_mutex_init(&monitor.io, NULL);
 	return (monitor);
@@ -45,7 +45,7 @@ void	init_philosophers(t_philosopher *philos, t_philo_dto input,
 	size_t			i;
 
 	i = 0;
-	while (i < input.num_of_philos)
+	while (i < (size_t)input.num_of_philos)
 	{
 		philos[i].started_at = gettime_ms();
 		philos[i].id = i;

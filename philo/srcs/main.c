@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 00:44:31 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/02/23 19:21:40 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 00:25:37 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,9 @@ int	main(int ac, char **av)
 	t_philo_dto	args;
 
 	if (!(ac == 5 || ac == 6))
-		return (handle_error());
-	args = input_arguments(av);
+		return (put_error());
+	if (!input_arguments(av, &args))
+		return (put_error());
 	simulate_problem(args);
 	return (0);
 }
-
-/**
-int main (void)
-{
-	t_deque		*queue;
-	size_t		data;
-
-	queue = ft_deque_init(sizeof(size_t), 10);
-	ft_deque_push_back(queue, &(size_t){1});
-	ft_deque_push_back(queue, &(size_t){2});
-	ft_deque_push_back(queue, &(size_t){3});
-	ft_deque_pop_front(queue, &data);
-	printf("%zu\n", data);
-	ft_deque_pop_front(queue, &data);
-	printf("%zu\n", data);
-	ft_deque_pop_front(queue, &data);
-	printf("%zu\n", data);
-	ft_deque_pop_front(queue, &data);
-	printf("%zu\n", data);
-	return (0);
-}
-
-*/

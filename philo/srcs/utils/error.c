@@ -6,14 +6,16 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:21 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/03 22:49:22 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 00:26:14 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	handle_error(void)
+#define MSG "Invalid arguments.\n"
+
+int	put_error(void)
 {
-	printf("Invalid arguments.\n");
+	printf(MSG);
 	return (0);
 }

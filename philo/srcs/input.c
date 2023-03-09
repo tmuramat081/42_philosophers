@@ -12,8 +12,23 @@
 
 #include "philosophers.h"
 
+bool	is_valid_arguments(t_philo_dto *args)
+{
+	if (args->num_of_philos > 200)
+		return (false);
+	else if (args->time_to_die > 1000)
+		return (false);
+	else if (args->time_to_eat > 1000)
+		return (false);
+	else if (args->time_to_sleep > 1000)
+		return (false);
+	else if (args->num_of_eating > 1000)
+		return (false);
+	return (true);
+}
+
 /** Convert string to int value, using strtol function. */
-int	convert_str_to_int(char *str)
+bool	convert_str_to_int(char *str, long *num)
 {
 	char	*end_ptr;
 	long	long_num;
@@ -21,23 +36,31 @@ int	convert_str_to_int(char *str)
 	end_ptr = NULL;
 	long_num = ft_strtol_d(str, &end_ptr);
 	if (long_num < INT_MIN || INT_MAX < long_num)
-		handle_error();
+		return (false);
 	else if (*end_ptr || end_ptr == str)
-		handle_error();
-	return ((int)long_num);
+		return (false);
+	*num = long_num;
+	return (true);
 }
 
-t_philo_dto	input_arguments(char **av)
+bool	input_arguments(char **av, t_philo_dto *args)
 {
-	t_philo_dto	args;
-
-	args.num_of_philos = convert_str_to_int(av[1]);
-	args.time_to_die = convert_str_to_int(av[2]);
-	args.time_to_eat = convert_str_to_int(av[3]);
-	args.time_to_sleep = convert_str_to_int(av[4]);
+	if (!convert_str_to_int(av[1], &args->num_of_philos))
+		return (false);
+	if (!convert_str_to_int(av[2], &args->time_to_die))
+		return (false);
+	if (!convert_str_to_int(av[3], &args->time_to_eat))
+		return (false);
+	if (!convert_str_to_int(av[4], &args->time_to_sleep))
+		return (false);
 	if (av[5])
-		args.num_of_eating = convert_str_to_int(av[5]);
+	{
+		if (!convert_str_to_int(av[5], &args->num_of_eating))
+			return (false);
+	}
 	else
-		args.num_of_eating = -1;
-	return (args);
+		args->num_of_eating = -1;
+	if (!is_valid_arguments(args))
+		return (false);
+	return (true);
 }

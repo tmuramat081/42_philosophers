@@ -6,10 +6,9 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:27 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/08 01:56:42 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 00:28:16 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "philosophers.h"
 #include <pthread.h>

@@ -38,10 +38,10 @@ typedef struct s_arbitrator		t_arbitrator;
  */
 struct s_philo_dto
 {
-	size_t	num_of_philos;
-	size_t	time_to_die;
-	size_t	time_to_eat;
-	size_t	time_to_sleep;
+	long	num_of_philos;
+	long	time_to_die;
+	long	time_to_eat;
+	long	time_to_sleep;
 	long	num_of_eating;
 };
 
@@ -81,13 +81,14 @@ struct s_arbitrator
 	t_monitor	*monitor;
 };
 
-t_philo_dto		input_arguments(char **av);
-void			simulate_problem(t_philo_dto input);
+/** Simulator */
+bool			input_arguments(char **av, t_philo_dto *philo);
 t_monitor		init_monitor(t_philo_dto input);
 void			init_philosophers(t_philosopher philo[200], \
 	t_philo_dto input, t_monitor *monitor, t_arbitrator *waiter);
-int				handle_error(void);
-void			start_dinner(t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter);
+void			simulate_problem(t_philo_dto input);
+void			start_dinner(t_philosopher *philos, t_monitor *monitor, \
+	t_arbitrator *waiter);
 long			gettime_ms(void);
 long			get_elapsed_time(long start_ms, long end_ms);
 int				put_timestamp(char *string, t_philosopher *philo);
@@ -115,5 +116,6 @@ long			ft_strtol_d(const char *nptr, char **endp);
 int				ft_isspace(int c);
 int				ft_isdigit(int c);
 void			ft_sleep(long time_to_wait);
+int				put_error(void);
 
 #endif
