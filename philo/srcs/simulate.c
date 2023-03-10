@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   simulate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkohki <kkohki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 00:36:29 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/07 23:22:55 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 22:57:26 by kkohki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief Create a threads object
+ * 
+ * @param philos スレッドを新規作成する
+ * @param monitor モニター
+ * @param waiter ウェイター
+ */
 void	create_threads(
 	t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter)
 {
@@ -29,6 +36,12 @@ void	create_threads(
 	}
 }
 
+/**
+ * @brief 作成したスレッドのリソースを解放する
+ * 
+ * @param philos 哲学者
+ * @param monitor モニター
+ */
 void	destroy_threads(t_philosopher *philos, t_monitor *monitor)
 {
 	size_t	i;
@@ -43,6 +56,10 @@ void	destroy_threads(t_philosopher *philos, t_monitor *monitor)
 	}
 }
 
+/**
+ * @brief シミュレーションの開始 
+ * 
+ */
 void	simulate_problem(t_philo_dto input)
 {
 	t_monitor		monitor;

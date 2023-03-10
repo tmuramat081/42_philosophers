@@ -12,6 +12,14 @@
 
 #include "philosophers.h"
 
+
+/**
+ * @brief 引数の境界値チェック
+ * 
+ * @param args 入力された引数
+ * @return true 正常：境界値を超えていない
+ * @return false エラー：境界値を超えている 
+ */
 bool	is_valid_arguments(t_philo_dto *args)
 {
 	if (args->num_of_philos > 200)
@@ -27,8 +35,15 @@ bool	is_valid_arguments(t_philo_dto *args)
 	return (true);
 }
 
-/** Convert string to int value, using strtol function. */
-bool	convert_str_to_int(char *str, long *num)
+/**
+ * @brief 
+ * 
+ * @param str 文字列をlong型整数に変換する
+ * @param num 変換された値が格納されるアドレス
+ * @return true 正常；変換に成功した
+ * @return false エラー；文字列に数字以外が含まれる、もしくはINTの境界値を超える
+ */
+static bool	convert_str_to_int(char *str, long *num)
 {
 	char	*end_ptr;
 	long	long_num;
@@ -43,6 +58,14 @@ bool	convert_str_to_int(char *str, long *num)
 	return (true);
 }
 
+/**
+ * @brief シミュレーション用の引数を取得する 
+ * 
+ * @param av 
+ * @param args 
+ * @return true 正常
+ * @return false エラー；取得に失敗した
+ */
 bool	input_arguments(char **av, t_philo_dto *args)
 {
 	if (!convert_str_to_int(av[1], &args->num_of_philos))

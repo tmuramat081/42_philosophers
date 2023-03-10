@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkohki <kkohki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:45 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 00:22:50 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 23:08:18 by kkohki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief ウェイター用スレッドの初期化
+ * 
+ * @param input 
+ * @return t_arbitrator 
+ */
 t_arbitrator	init_arbitrator(t_philo_dto input)
 {
 	t_arbitrator	waiter;
@@ -20,6 +26,12 @@ t_arbitrator	init_arbitrator(t_philo_dto input)
 	return (waiter);
 }
 
+/**
+ * @brief モニタースレッドの初期化
+ * 
+ * @param input シミュレーションの入力値
+ * @return t_monitor モニター用構造体
+ */
 t_monitor	init_monitor(t_philo_dto input)
 {
 	t_monitor	monitor;
@@ -39,6 +51,14 @@ t_monitor	init_monitor(t_philo_dto input)
 	return (monitor);
 }
 
+/**
+ * @brief 哲学者スレッドの初期化 
+ * 
+ * @param philos 哲学者用の構造体
+ * @param input シミュレーションの入力値
+ * @param monitor モニター 
+ * @param waiter ウェイター
+ */
 void	init_philosophers(t_philosopher *philos, t_philo_dto input,
 	t_monitor *monitor, t_arbitrator *waiter)
 {

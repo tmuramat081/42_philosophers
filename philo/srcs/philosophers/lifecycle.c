@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   lifecycle.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkohki <kkohki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:27 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 01:40:36 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/10 22:55:05 by kkohki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 /**
- * @brief 哲学者の行動
+ * @brief 哲学者の行動ルーチン
  *
- * @param p_philo
+ * @param p_philo 哲学者への参照アドレス 
  * @return void*
  */
 void	*lifecycle(void *p_philo)
