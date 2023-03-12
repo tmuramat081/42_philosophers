@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:04 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/03 22:54:03 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/13 01:28:05 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	put_timestamp(char *string, t_philosopher *philo)
 
 	now = gettime_ms();
 	elapsed_time = get_elapsed_time(philo->started_at, now);
-	pthread_mutex_lock(&philo->monitor->io);
+	pthread_mutex_lock(&philo->monitor->mut_io);
 	if (philo->monitor->is_sim_over == true)
 	{
-		pthread_mutex_unlock(&philo->monitor->io);
+		pthread_mutex_unlock(&philo->monitor->mut_io);
 		return (0);
 	}
 	printf("%ld %zu %s\n", elapsed_time, philo->id + 1, string);
-	pthread_mutex_unlock(&philo->monitor->io);
+	pthread_mutex_unlock(&philo->monitor->mut_io);
 	return (1);
 }

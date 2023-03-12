@@ -18,7 +18,7 @@
 # define MSG_SLEEPING "is sleeping"
 # define MSG_THINKING "is thinking"
 # define MSG_DIED "died"
-# define PHILO_MAX 500
+# define PHILO_MAX 200
 
 # include <libc.h>
 # include <pthread.h>
@@ -27,13 +27,14 @@
 # include "ft_deque.h"
 
 typedef struct s_philo_dto		t_philo_dto;
-typedef struct timeval			t_timeval;
+typedef struct s_environ		t_environ;
 typedef struct s_monitor		t_monitor;
 typedef struct s_philosopher	t_philosopher;
 typedef struct s_arbitrator		t_arbitrator;
+typedef struct timeval			t_timeval;
 
 /**
- * @brief コマンドライン引数からの取得用DTO型
+ * @brief コマンドライン引数の取得型
  *
  */
 struct s_philo_dto
@@ -56,21 +57,19 @@ struct s_philosopher
 	long			last_eat_at;
 	size_t			count_eaten;
 	t_monitor		*monitor;
-	t_arbitrator	*waiter;
 };
 
 struct s_monitor
 {
 	pthread_t		thread_id;
 	long			started_at;
-	pthread_mutex_t	forks[PHILO_MAX];
 	size_t			num_of_philos;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	long			num_of_eat;
 	bool			is_sim_over;
-	pthread_mutex_t	io;
+	pthread_mutex_t	mut_io;
 	t_philosopher	*philos;
 };
 
@@ -78,20 +77,25 @@ struct s_arbitrator
 {
 	pthread_t	thread_id;
 	t_deque		*queue;
-	t_monitor	*monitor;
 };
 
-/** Simulator */
+struct s_environ
+{
+	t_philosopher	philos[200];
+	t_monitor		monitor;
+	t_arbitrator	waiter;
+	pthread_mutex_t	forks[200];
+	long			started_at;
+};
+
+/** Main functions */
 bool			input_arguments(char **av, t_philo_dto *philo);
-t_monitor		init_monitor(t_philo_dto input);
-void			init_philosophers(t_philosopher philo[200], \
-	t_philo_dto input, t_monitor *monitor, t_arbitrator *waiter);
-void			simulate_problem(t_philo_dto input);
-void			start_dinner(t_philosopher *philos, t_monitor *monitor, \
-	t_arbitrator *waiter);
-long			gettime_ms(void);
-long			get_elapsed_time(long start_ms, long end_ms);
-int				put_timestamp(char *string, t_philosopher *philo);
+t_environ		init_environs(t_philo_dto input);
+void			simulate_problem(t_environ envs);
+
+/** Initalize threads */
+void			start_dinner(t_philosopher *philos, t_monitor *monitor,
+					t_arbitrator *waiter);
 
 /** Thread for philosophers */
 void			*lifecycle(void *philo);
@@ -106,7 +110,6 @@ bool			is_philo_full(t_monitor *monitor, t_philosopher *philos);
 int				dead_timestamp(char *string, t_philosopher *philo);
 
 /** Thread for Arbitrator (waiter) */
-t_arbitrator	init_arbitrator(t_philo_dto input);
 void			*server(void *p_waiter);
 void			send_message(t_philosopher *philo);
 int				receive_message(t_philosopher *philo);
@@ -117,5 +120,8 @@ int				ft_isspace(int c);
 int				ft_isdigit(int c);
 void			ft_sleep(long time_to_wait);
 int				put_error(void);
+long			gettime_ms(void);
+int				put_timestamp(char *string, t_philosopher *philo);
+long			get_elapsed_time(long start_ms, long end_ms);
 
 #endif

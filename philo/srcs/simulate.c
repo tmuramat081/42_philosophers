@@ -6,54 +6,75 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 00:36:29 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/07 23:22:55 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/13 02:17:14 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	create_threads(
-	t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter)
+/**
+ * @brief Create a threads object
+ *
+ * @param philos スレッドを新規作成する
+ * @param monitor モニター
+ * @param waiter ウェイター
+ */
+void	create_threads(t_environ envs)
 {
-	size_t		i;
+	t_arbitrator		waiter;
+	t_monitor			monitor;
+	t_philosopher		*philos;
+	size_t				i;
 
-	pthread_create(&waiter->thread_id, NULL, server, waiter);
-	pthread_detach(waiter->thread_id);
-	pthread_create(&monitor->thread_id, NULL, checker, monitor);
-	pthread_detach(monitor->thread_id);
+	waiter = envs.waiter;
+	monitor = envs.monitor;
+	philos = envs.philos;
+	pthread_create(&waiter.thread_id, NULL, server, &waiter);
+	pthread_detach(waiter.thread_id);
+	pthread_create(&monitor.thread_id, NULL, checker, &monitor);
+	pthread_detach(monitor.thread_id);
 	i = 0;
-	while (i < monitor->num_of_philos)
+	while (i < monitor.num_of_philos)
 	{
 		pthread_create(&philos[i].thread_id, NULL, lifecycle, &philos[i]);
 		i++;
 	}
 }
 
-void	destroy_threads(t_philosopher *philos, t_monitor *monitor)
+/**
+ * @brief 作成したスレッドのリソースを解放する
+ *
+ * @param philos 哲学者
+ * @param monitor モニター
+ */
+void	destroy_threads(t_environ envs)
 {
-	size_t	i;
+	t_arbitrator		waiter;
+	t_monitor			monitor;
+	t_philosopher		*philos;
+	size_t				i;
 
+	waiter = envs.waiter;
+	monitor = envs.monitor;
+	philos = envs.philos;
 	i = 0;
-	while (i < monitor->num_of_philos)
+	while (i < monitor.num_of_philos)
 	{
-		pthread_join(philos[i].thread_id, NULL);
+		pthread_join(envs.philos[i].thread_id, NULL);
 		pthread_mutex_destroy(&philos[i].mutex);
-		pthread_mutex_destroy(&monitor->forks[i]);
+		pthread_mutex_destroy(&envs.forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&monitor.mut_io);
+	ft_deque_delete(&waiter.queue);
 }
 
-void	simulate_problem(t_philo_dto input)
+/**
+ * @brief シミュレーションの開始
+ *
+ */
+void	simulate_problem(t_environ envs)
 {
-	t_monitor		monitor;
-	t_arbitrator	waiter;
-	t_philosopher	philos[PHILO_MAX];
-
-	waiter = init_arbitrator(input);
-	monitor = init_monitor(input);
-	init_philosophers(philos, input, &monitor, &waiter);
-	monitor.philos = philos;
-	waiter.monitor = &monitor;
-	create_threads(philos, &monitor, &waiter);
-	destroy_threads(philos, &monitor);
+	create_threads(envs);
+	destroy_threads(envs);
 }
