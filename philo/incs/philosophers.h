@@ -91,7 +91,7 @@ struct s_arbitrator
 {
 	pthread_t	thread_id;
 	t_deque		*queue;
-	t_monitor	*monitor;
+	t_monitor	monitor;
 };
 
 struct s_environ

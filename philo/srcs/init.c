@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:45 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/14 02:29:42 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/14 03:19:11 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	init_forks(t_environ *envs, t_philo_dto input)
 void	init_arbitrator(t_environ *envs, t_philo_dto input)
 {
 	envs->waiter.queue = ft_deque_init(sizeof(size_t), input.num_of_philos);
-	envs->waiter.monitor = &envs->monitor;
+	envs->waiter.monitor = envs->monitor;
 }
 
 /**
  * @brief モニタースレッドの初期化
  *
  * @param input シミュレーションの入力値
- * @return t_monitor モニター用構造体
+ * @return t_monitor 監視者の管理情報
  */
 void	init_monitor(t_environ *envs, t_philo_dto input)
 {
