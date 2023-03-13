@@ -6,19 +6,12 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 00:44:31 by tmuramat          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2023/03/10 00:25:37 by tmuramat         ###   ########.fr       */
-=======
-/*   Updated: 2023/03/13 02:00:02 by tmuramat         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2023/03/14 02:20:14 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include "ft_deque.h"
-
-<<<<<<< Updated upstream
-=======
 
 /**
  * @brief 食事する哲学者問題のシミュレーション
@@ -27,7 +20,6 @@
  * @param av
  * @return int
  */
->>>>>>> Stashed changes
 int	main(int ac, char **av)
 {
 	t_philo_dto	args;
@@ -38,6 +30,6 @@ int	main(int ac, char **av)
 	if (!input_arguments(av, &args))
 		return (put_error());
 	envs = init_environs(args);
-	simulate_problem(envs);
+	simulate_problem(&envs);
 	return (0);
 }

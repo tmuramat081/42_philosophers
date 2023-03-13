@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:27 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 00:28:16 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/14 01:29:37 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	do_eat(t_philosopher *philo, t_monitor *monitor)
 		return (0);
 	if (!do_pick_up_forks(philo))
 		return (0);
-	pthread_mutex_lock(&philo->mutex);
+	pthread_mutex_lock(&philo->mut);
 	philo->last_eat_at = gettime_ms();
-	pthread_mutex_unlock(&philo->mutex);
+	pthread_mutex_unlock(&philo->mut);
 	if (!put_timestamp(MSG_EATING, philo))
 		return (0);
 	ft_sleep(monitor->time_to_eat);

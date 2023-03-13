@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:58 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 00:08:29 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/14 01:58:03 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ int	receive_message(t_philosopher *philo)
 		top = ft_deque_front(waiter->queue);
 		if (top && *top == philo->id)
 		{
+			ft_deque_lock(waiter->queue);
 			ft_deque_pop_front(waiter->queue, top);
 			ft_deque_unlock(waiter->queue);
 			break ;
 		}
-		ft_deque_unlock(waiter->queue);
 	}
-	usleep(100);
 	return (1);
 }

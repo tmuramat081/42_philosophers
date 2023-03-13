@@ -46,19 +46,28 @@ struct s_philo_dto
 	long	num_of_eating;
 };
 
+/**
+ * @brief 哲学者の管理情報
+ *
+ */
 struct s_philosopher
 {
 	size_t			id;
 	pthread_t		thread_id;
 	long			started_at;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	mut;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	long			last_eat_at;
 	size_t			count_eaten;
 	t_monitor		*monitor;
+	t_arbitrator	*waiter;
 };
 
+/**
+ * @brief 監視者の管理情報
+ *
+ */
 struct s_monitor
 {
 	pthread_t		thread_id;
@@ -71,12 +80,18 @@ struct s_monitor
 	bool			is_sim_over;
 	pthread_mutex_t	mut_io;
 	t_philosopher	*philos;
+	t_arbitrator	*waiter;
 };
 
+/**
+ * @brief 配膳人の
+ *
+ */
 struct s_arbitrator
 {
 	pthread_t	thread_id;
 	t_deque		*queue;
+	t_monitor	*monitor;
 };
 
 struct s_environ
@@ -91,7 +106,7 @@ struct s_environ
 /** Main functions */
 bool			input_arguments(char **av, t_philo_dto *philo);
 t_environ		init_environs(t_philo_dto input);
-void			simulate_problem(t_environ envs);
+void			simulate_problem(t_environ *envs);
 
 /** Initalize threads */
 void			start_dinner(t_philosopher *philos, t_monitor *monitor,
@@ -107,7 +122,6 @@ int				do_think(t_philosopher *philo);
 void			*checker(void *p_monitor);
 bool			is_philo_dead(t_monitor *monitor, t_philosopher *philos);
 bool			is_philo_full(t_monitor *monitor, t_philosopher *philos);
-int				dead_timestamp(char *string, t_philosopher *philo);
 
 /** Thread for Arbitrator (waiter) */
 void			*server(void *p_waiter);

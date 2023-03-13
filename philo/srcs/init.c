@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:45 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/13 02:16:39 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/14 02:29:42 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_forks(t_environ *envs, t_philo_dto input)
 }
 
 /**
- * @brief ウェイター用スレッドの初期化
+ * @brief 配膳人用スレッドの初期化
  *
  * @param input
  * @return t_arbitrator
@@ -39,6 +39,7 @@ void	init_forks(t_environ *envs, t_philo_dto input)
 void	init_arbitrator(t_environ *envs, t_philo_dto input)
 {
 	envs->waiter.queue = ft_deque_init(sizeof(size_t), input.num_of_philos);
+	envs->waiter.monitor = &envs->monitor;
 }
 
 /**
@@ -56,16 +57,17 @@ void	init_monitor(t_environ *envs, t_philo_dto input)
 	envs->monitor.time_to_sleep = input.time_to_sleep;
 	envs->monitor.num_of_eat = input.num_of_eating;
 	envs->monitor.is_sim_over = false;
+	envs->monitor.philos = envs->philos;
 	pthread_mutex_init(&envs->monitor.mut_io, NULL);
 }
 
 /**
  * @brief 哲学者スレッドの初期化
  *
- * @param philos 哲学者用の構造体
+ * @param philos 哲学者の管理情報
  * @param input シミュレーションの入力値
- * @param monitor モニター
- * @param waiter ウェイター
+ * @param monitor 監視人の管理情報
+ * @param waiter 配膳人の管理情報
  */
 void	init_philosophers(t_environ *envs, t_philo_dto input)
 {
@@ -80,8 +82,10 @@ void	init_philosophers(t_environ *envs, t_philo_dto input)
 		envs->philos[i].fork_right = &envs->forks[i + 1 % input.num_of_philos];
 		envs->philos[i].count_eaten = 0;
 		envs->philos[i].last_eat_at = envs->started_at;
-		pthread_mutex_init(&envs->philos[i].mutex, NULL);
+		envs->philos[i].monitor = &envs->monitor;
+		envs->philos[i].waiter = &envs->waiter;
 		send_message(&envs->philos[i]);
+		pthread_mutex_init(&envs->philos[i].mut, NULL);
 		i++;
 	}
 }
