@@ -60,8 +60,7 @@ struct s_philosopher
 	pthread_mutex_t	*fork_right;
 	long			last_eat_at;
 	size_t			count_eaten;
-	t_monitor		*monitor;
-	t_arbitrator	*waiter;
+	t_environ		*envs;
 };
 
 /**
@@ -77,10 +76,8 @@ struct s_monitor
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	long			num_of_eat;
-	bool			is_sim_over;
 	pthread_mutex_t	mut_io;
-	t_philosopher	*philos;
-	t_arbitrator	*waiter;
+	t_environ		*envs;
 };
 
 /**
@@ -91,21 +88,22 @@ struct s_arbitrator
 {
 	pthread_t	thread_id;
 	t_deque		*queue;
-	t_monitor	monitor;
+	t_environ	*envs;
 };
 
 struct s_environ
 {
-	t_philosopher	philos[200];
+	t_philosopher	philos[PHILO_MAX];
 	t_monitor		monitor;
 	t_arbitrator	waiter;
-	pthread_mutex_t	forks[200];
+	pthread_mutex_t	forks[PHILO_MAX];
 	long			started_at;
+	bool			is_sim_over;
 };
 
 /** Main functions */
 bool			input_arguments(char **av, t_philo_dto *philo);
-t_environ		init_environs(t_philo_dto input);
+void			init_environs(t_environ *envs, t_philo_dto input);
 void			simulate_problem(t_environ *envs);
 
 /** Initalize threads */

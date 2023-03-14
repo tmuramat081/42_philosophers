@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:58 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/14 03:18:35 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/15 05:13:40 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static bool	_is_over(t_arbitrator *waiter)
 {
-	if (waiter->monitor.is_sim_over == true)
+	if (waiter->envs->is_sim_over == true)
 		return (false);
 	return (true);
 }
 
 void	send_message(t_philosopher *philo)
 {
-	t_arbitrator	*waiter;
-
-	waiter = philo->waiter;
-	ft_deque_lock(waiter->queue);
-	ft_deque_push_back(waiter->queue, &philo->id);
-	ft_deque_unlock(waiter->queue);
+	(void)philo;
+	printf("%p\n", &philo->envs->is_sim_over);
+	return ;
+//	ft_deque_lock(waiter->queue);
+//	ft_deque_push_back(waiter->queue, &philo->id);
+//	ft_deque_unlock(waiter->queue);
 }
 
 int	receive_message(t_philosopher *philo)
@@ -34,7 +34,7 @@ int	receive_message(t_philosopher *philo)
 	t_arbitrator	*waiter;
 	size_t			*top;
 
-	waiter = philo->waiter;
+	waiter = philo->envs->waiter;
 	while (true)
 	{
 		if (!_is_over(waiter))
