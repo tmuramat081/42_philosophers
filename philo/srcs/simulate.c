@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 00:36:29 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/15 05:14:06 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/16 00:01:07 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	destroy_threads(t_environ *envs)
 	t_philosopher		*philos;
 	size_t				i;
 
-	waiter = envs->waiter;
-	monitor = envs->monitor;
+	waiter = &envs->waiter;
+	monitor = &envs->monitor;
 	philos = envs->philos;
 	i = 0;
 	while (i < monitor->num_of_philos)
@@ -54,8 +54,8 @@ void	create_threads(t_environ *envs)
 	t_philosopher		*philos;
 	size_t				i;
 
-	waiter = envs->waiter;
-	monitor = envs->monitor;
+	waiter = &envs->waiter;
+	monitor = &envs->monitor;
 	philos = envs->philos;
 	pthread_create(&waiter->thread_id, NULL, server, waiter);
 	pthread_detach(waiter->thread_id);

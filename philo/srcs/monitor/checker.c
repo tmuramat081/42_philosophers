@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 01:48:15 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/14 23:14:03 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/15 23:49:26 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*checker(void *p_monitor)
 	t_monitor		*monitor;
 
 	monitor = (t_monitor *)p_monitor;
-	philos = monitor->envs->philos;
+	philos = monitor->philos;
 	while (true)
 	{
 		if (is_philo_dead(monitor, philos)

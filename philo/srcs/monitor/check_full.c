@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:51 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/14 23:48:59 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/15 23:50:59 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	is_philo_full(t_monitor *monitor, t_philosopher *philos)
 	if (cnt_full >= monitor->num_of_philos)
 	{
 		pthread_mutex_lock(&philos[i].mut);
-		monitor->envs->is_sim_over = true;
+		monitor->is_sim_over = true;
 		pthread_mutex_unlock(&philos[i].mut);
 		return (true);
 	}

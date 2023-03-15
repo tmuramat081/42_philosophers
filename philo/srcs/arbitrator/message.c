@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:58 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/15 05:13:40 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/15 23:49:13 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,33 @@
 
 static bool	_is_over(t_arbitrator *waiter)
 {
-	if (waiter->envs->is_sim_over == true)
+	if (waiter->monitor->is_sim_over == true)
 		return (false);
 	return (true);
 }
 
 void	send_message(t_philosopher *philo)
 {
-	(void)philo;
-	printf("%p\n", &philo->envs->is_sim_over);
-	return ;
-//	ft_deque_lock(waiter->queue);
-//	ft_deque_push_back(waiter->queue, &philo->id);
-//	ft_deque_unlock(waiter->queue);
+	t_arbitrator	*waiter;
+
+	waiter = philo->waiter;
+	ft_deque_lock(waiter->queue);
+	ft_deque_push_back(waiter->queue, &philo->id);
+	ft_deque_unlock(waiter->queue);
 }
 
+/**
+ * @brief 食事許可キューの受信
+ *
+ * @param philo
+ * @return int
+ */
 int	receive_message(t_philosopher *philo)
 {
 	t_arbitrator	*waiter;
 	size_t			*top;
 
-	waiter = philo->envs->waiter;
+	waiter = philo->waiter;
 	while (true)
 	{
 		if (!_is_over(waiter))
@@ -50,7 +56,6 @@ int	receive_message(t_philosopher *philo)
 			break ;
 		}
 		ft_deque_unlock(waiter->queue);
-		usleep(100);
 	}
 	return (1);
 }
