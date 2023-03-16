@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:58 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/15 23:49:13 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/17 01:17:04 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@ static bool	_is_over(t_arbitrator *waiter)
 
 void	send_message(t_philosopher *philo)
 {
-	t_arbitrator	*waiter;
-
-	waiter = philo->waiter;
-	ft_deque_lock(waiter->queue);
-	ft_deque_push_back(waiter->queue, &philo->id);
-	ft_deque_unlock(waiter->queue);
+	ft_deque_lock(philo->waiter->queue);
+	ft_deque_push_back(philo->waiter->queue, &philo->id);
+	ft_deque_unlock(philo->waiter->queue);
 }
 
 /**

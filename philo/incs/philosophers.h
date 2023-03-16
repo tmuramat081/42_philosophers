@@ -54,13 +54,14 @@ struct s_philosopher
 {
 	size_t			id;
 	pthread_t		thread_id;
-	long			started_at;
-	pthread_mutex_t	mut;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
+	long			started_at;
 	long			last_eat_at;
 	size_t			count_eaten;
-	t_environ		*envs;
+	pthread_mutex_t	mut;
+	t_monitor		*monitor;
+	t_arbitrator	*waiter;
 };
 
 /**
@@ -70,25 +71,26 @@ struct s_philosopher
 struct s_monitor
 {
 	pthread_t		thread_id;
-	long			started_at;
 	size_t			num_of_philos;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	long			num_of_eat;
+	long			started_at;
+	bool			is_sim_over;
 	pthread_mutex_t	mut_io;
-	t_environ		*envs;
+	t_philosopher	*philos;
 };
 
 /**
- * @brief 配膳人の
+ * @brief 配膳人の管理情報
  *
  */
 struct s_arbitrator
 {
-	pthread_t	thread_id;
-	t_deque		*queue;
-	t_environ	*envs;
+	pthread_t		thread_id;
+	t_deque			*queue;
+	t_monitor		*monitor;
 };
 
 struct s_environ
@@ -103,7 +105,7 @@ struct s_environ
 
 /** Main functions */
 bool			input_arguments(char **av, t_philo_dto *philo);
-void			init_environs(t_environ *envs, t_philo_dto input);
+t_environ		init_environs(t_philo_dto input);
 void			simulate_problem(t_environ *envs);
 
 /** Initalize threads */
