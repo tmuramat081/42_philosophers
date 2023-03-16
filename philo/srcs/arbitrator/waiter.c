@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:50:12 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/15 23:40:12 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/17 02:06:19 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 static bool	_is_over(t_arbitrator *waiter)
 {
 	if (waiter->monitor->is_sim_over == true)
+	{
 		return (false);
+	}
 	return (true);
 }
 

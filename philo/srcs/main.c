@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 00:44:31 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/15 23:39:52 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/17 02:01:17 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@
 int	main(int ac, char **av)
 {
 	t_philo_dto	args;
-	t_environ	envs;
 
 	if (!(ac == 5 || ac == 6))
 		return (put_error());
 	if (!input_arguments(av, &args))
 		return (put_error());
-	envs = init_environs(args);
-	simulate_problem(&envs);
+	simulate_problem(args);
 	return (0);
 }

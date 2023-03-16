@@ -100,13 +100,12 @@ struct s_environ
 	t_arbitrator	waiter;
 	pthread_mutex_t	forks[PHILO_MAX];
 	long			started_at;
-	bool			is_sim_over;
 };
 
 /** Main functions */
 bool			input_arguments(char **av, t_philo_dto *philo);
 t_environ		init_environs(t_philo_dto input);
-void			simulate_problem(t_environ *envs);
+void			simulate_problem(t_philo_dto args);
 
 /** Initalize threads */
 void			start_dinner(t_philosopher *philos, t_monitor *monitor,

@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:04 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/17 01:10:55 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/17 01:38:28 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	put_timestamp(char *string, t_philosopher *philo)
 	long	elapsed_time;
 	long	now;
 
-	pthread_mutex_lock(&philo->monitor->mut_io);
 	now = gettime_ms();
 	elapsed_time = get_elapsed_time(philo->started_at, now);
+	pthread_mutex_lock(&philo->monitor->mut_io);
 	if (philo->monitor->is_sim_over == true)
 	{
 		pthread_mutex_unlock(&philo->monitor->mut_io);
