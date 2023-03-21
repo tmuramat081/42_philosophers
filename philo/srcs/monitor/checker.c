@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 01:48:15 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 13:17:17 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:33:37 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	*checker(void *p_monitor)
 			|| is_philo_full(monitor, philos))
 			break ;
 	}
+	puts("checker END");
 	return (NULL);
 }

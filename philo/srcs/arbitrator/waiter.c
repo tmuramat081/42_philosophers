@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:50:12 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 18:44:52 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:33:53 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
  */
 static bool	_is_over(t_arbitrator *waiter)
 {
-	bool	is_sim_over;
-
 	pthread_mutex_lock(&waiter->monitor->mutex_check);
-	is_sim_over = waiter->monitor->is_sim_over;
-	pthread_mutex_unlock(&waiter->monitor->mutex_check);
-	if (is_sim_over == true)
+	if (waiter->monitor->is_sim_over == true)
+	{
+		pthread_mutex_unlock(&waiter->monitor->mutex_check);
 		return (false);
+	}
+	pthread_mutex_unlock(&waiter->monitor->mutex_check);
 	return (true);
 }
 
@@ -45,5 +45,6 @@ void	*server(void	*p_waiter)
 	waiter = p_waiter;
 	while (_is_over(waiter))
 		;
+	puts("waiter END");
 	return (NULL);
 }
