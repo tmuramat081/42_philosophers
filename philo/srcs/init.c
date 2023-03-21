@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:45 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 14:47:30 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:46:59 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	init_monitor(t_monitor *monitor, t_philo_dto input)
 	i = 0;
 	while (i < (size_t)input.num_of_philos)
 		pthread_mutex_init(&monitor->forks[i++], NULL);
-	pthread_mutex_init(&monitor->mutex_io, NULL);
+	pthread_mutex_init(&monitor->mutex_write, NULL);
+	pthread_mutex_init(&monitor->mutex_check, NULL);
 }
 
 /**

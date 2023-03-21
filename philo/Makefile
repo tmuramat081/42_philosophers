@@ -1,6 +1,6 @@
 # Compile variables
 NAME := philo
-CC := gcc -g -fsanitize=undefined -pthread
+CC := gcc -g
 CFLAGS := -Wall -Wextra -Werror
 
 SRCS_DIR := srcs/
