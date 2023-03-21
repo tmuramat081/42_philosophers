@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:45 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 13:54:13 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:47:30 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_monitor(t_monitor *monitor, t_philo_dto input)
 {
 	size_t		i;
 
-	monitor->started_at = gettime_ms();
+	monitor->started_at = input.started_at;
 	monitor->num_of_philos = input.num_of_philos;
 	monitor->time_to_die = input.time_to_die;
 	monitor->time_to_eat = input.time_to_eat;
@@ -62,11 +62,10 @@ void	init_philosophers(t_philosopher *philos, t_philo_dto input,
 	i = 0;
 	while (i < (size_t)input.num_of_philos)
 	{
-		philos[i].started_at = gettime_ms();
+		philos[i].started_at = input.started_at;
 		philos[i].id = i;
 		philos[i].fork_left = &monitor->forks[i];
-		philos[i].fork_right = \
-			&monitor->forks[i + 1 % input.num_of_philos];
+		philos[i].fork_right = &monitor->forks[(i + 1) % input.num_of_eating];
 		philos[i].count_eaten = 0;
 		philos[i].last_eat_at = philos[i].started_at;
 		philos[i].monitor = monitor;

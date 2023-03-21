@@ -43,6 +43,7 @@ struct s_philo_dto
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	num_of_eating;
+	long	started_at;
 };
 
 struct s_philosopher

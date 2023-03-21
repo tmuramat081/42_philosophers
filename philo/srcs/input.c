@@ -61,5 +61,6 @@ bool	input_arguments(char **av, t_philo_dto *args)
 	}
 	else
 		args->num_of_eating = -1;
+	args->started_at = gettime_ms();
 	return (true);
 }
