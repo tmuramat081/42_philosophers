@@ -6,13 +6,13 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:42 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 16:07:53 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:18:01 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	usleep_ms(t_philosopher *philo, long time_to_wait)
+void	ft_sleep(long time_to_wait)
 {
 	long	start;
 
@@ -21,6 +21,6 @@ void	usleep_ms(t_philosopher *philo, long time_to_wait)
 	{
 		if (get_elapsed_time(start, gettime_ms()) >= time_to_wait)
 			break ;
-		usleep(100);
+		usleep(10);
 	}
 }

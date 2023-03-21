@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:53 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 13:34:58 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:17:23 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	dead_timestamp(char *string, t_philosopher *philo)
 {
 	long	elapsed_time;
 
-	pthread_mutex_lock(&philo->monitor->mutex_io);
 	elapsed_time = get_elapsed_time(philo->started_at, gettime_ms());
+	pthread_mutex_lock(&philo->monitor->mutex_io);
 	printf("%ld %zu %s\n", elapsed_time, philo->id + 1, string);
 	pthread_mutex_unlock(&philo->monitor->mutex_io);
 	return (1);
