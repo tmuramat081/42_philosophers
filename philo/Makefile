@@ -17,7 +17,7 @@ SRCS := main.c \
 		monitor/check_full.c \
 		utils/time.c \
 		utils/error.c \
-		utils/ft_sleep.c \
+		utils/sleep.c \
 		utils/ft_strtol_d.c \
 		utils/ft_isspace.c \
 		utils/ft_isdigit.c
