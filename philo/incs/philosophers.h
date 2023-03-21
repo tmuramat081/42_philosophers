@@ -74,12 +74,13 @@ struct s_monitor
 	long			started_at;
 	pthread_mutex_t	forks[PHILO_MAX];
 	size_t			num_of_philos;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
 	long			num_of_eat;
 	bool			is_sim_over;
-	pthread_mutex_t	mutex_io;
+	pthread_mutex_t	mutex_write;
+	pthread_mutex_t	mutex_check;
 	t_philosopher	*philos;
 };
 
