@@ -33,7 +33,7 @@ typedef struct s_philosopher	t_philosopher;
 typedef struct s_arbitrator		t_arbitrator;
 
 /**
- * @brief コマンドライン引数からの取得用DTO型
+ * @brief コマンドライン引数からの取得型
  *
  */
 struct s_philo_dto
@@ -46,6 +46,10 @@ struct s_philo_dto
 	long	started_at;
 };
 
+/**
+ * @brief 哲学者の管理情報
+ *
+ */
 struct s_philosopher
 {
 	size_t			id;
@@ -55,11 +59,16 @@ struct s_philosopher
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	long			last_eat_at;
+	long			action_at;
 	size_t			count_eaten;
 	t_monitor		*monitor;
 	t_arbitrator	*waiter;
 };
 
+/**
+ * @brief 監視者の管理情報
+ *
+ */
 struct s_monitor
 {
 	pthread_t		thread_id;
@@ -75,6 +84,10 @@ struct s_monitor
 	t_philosopher	*philos;
 };
 
+/**
+ * @brief 配膳人の管理情報
+ *
+ */
 struct s_arbitrator
 {
 	pthread_t	thread_id;
@@ -112,8 +125,10 @@ int				receive_message(t_philosopher *philo);
 long			ft_strtol_d(const char *nptr, char **endp);
 int				ft_isspace(int c);
 int				ft_isdigit(int c);
-void			usleep_ms(long time_to_wait);
 int				put_error(void);
+
+/** Time finctions */
+void			usleep_ms(t_philosopher *philo, long time_to_wait);
 long			gettime_ms(void);
 long			get_elapsed_time(long start_ms, long end_ms);
 int				put_timestamp(char *string, t_philosopher *philo);
