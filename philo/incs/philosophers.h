@@ -70,7 +70,7 @@ struct s_monitor
 	size_t			time_to_sleep;
 	long			num_of_eat;
 	bool			is_sim_over;
-	pthread_mutex_t	io;
+	pthread_mutex_t	mutex_io;
 	t_philosopher	*philos;
 };
 
@@ -81,17 +81,15 @@ struct s_arbitrator
 	t_monitor	*monitor;
 };
 
-/** Simulator */
+/**  Main functions */
+void			simulate_problem(t_philo_dto input);
 bool			input_arguments(char **av, t_philo_dto *philo);
-t_monitor		init_monitor(t_philo_dto input);
+
+/** Initialize functions */
+void			init_arbitrator(t_arbitrator *waiter, t_philo_dto input);
+void			init_monitor(t_monitor *monitor, t_philo_dto input);
 void			init_philosophers(t_philosopher philo[200], \
 	t_philo_dto input, t_monitor *monitor, t_arbitrator *waiter);
-void			simulate_problem(t_philo_dto input);
-void			start_dinner(t_philosopher *philos, t_monitor *monitor, \
-	t_arbitrator *waiter);
-long			gettime_ms(void);
-long			get_elapsed_time(long start_ms, long end_ms);
-int				put_timestamp(char *string, t_philosopher *philo);
 
 /** Thread for philosophers */
 void			*lifecycle(void *philo);
@@ -103,10 +101,8 @@ int				do_think(t_philosopher *philo);
 void			*checker(void *p_monitor);
 bool			is_philo_dead(t_monitor *monitor, t_philosopher *philos);
 bool			is_philo_full(t_monitor *monitor, t_philosopher *philos);
-int				dead_timestamp(char *string, t_philosopher *philo);
 
 /** Thread for Arbitrator (waiter) */
-t_arbitrator	init_arbitrator(t_philo_dto input);
 void			*server(void *p_waiter);
 void			send_message(t_philosopher *philo);
 int				receive_message(t_philosopher *philo);
@@ -117,5 +113,8 @@ int				ft_isspace(int c);
 int				ft_isdigit(int c);
 void			ft_sleep(long time_to_wait);
 int				put_error(void);
+long			gettime_ms(void);
+long			get_elapsed_time(long start_ms, long end_ms);
+int				put_timestamp(char *string, t_philosopher *philo);
 
 #endif

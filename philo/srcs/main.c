@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkohki <kkohki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 00:44:31 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 22:58:16 by kkohki           ###   ########.fr       */
+/*   Updated: 2023/03/21 12:51:37 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include "ft_deque.h"
 
-
 /**
  * @brief 食事する哲学者問題のシミュレーション
- * 
- * @param ac 
- * @param av 
+ *
+ * @param ac
+ * @param av
  * @return int
  */
 int	main(int ac, char **av)

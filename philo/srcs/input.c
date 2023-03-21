@@ -12,36 +12,13 @@
 
 #include "philosophers.h"
 
-
 /**
- * @brief 引数の境界値チェック
- * 
- * @param args 入力された引数
- * @return true 正常：境界値を超えていない
- * @return false エラー：境界値を超えている 
- */
-bool	is_valid_arguments(t_philo_dto *args)
-{
-	if (args->num_of_philos > 200)
-		return (false);
-	else if (args->time_to_die > 1000)
-		return (false);
-	else if (args->time_to_eat > 1000)
-		return (false);
-	else if (args->time_to_sleep > 1000)
-		return (false);
-	else if (args->num_of_eating > 1000)
-		return (false);
-	return (true);
-}
-
-/**
- * @brief 
- * 
+ * @brief
+ *
  * @param str 文字列をlong型整数に変換する
  * @param num 変換された値が格納されるアドレス
  * @return true 正常；変換に成功した
- * @return false エラー；文字列に数字以外が含まれる、もしくはINTの境界値を超える
+ * @return false エラー；文字列に数字以外が含まれていた、もしくはINTの境界値を超えた
  */
 static bool	convert_str_to_int(char *str, long *num)
 {
@@ -59,16 +36,17 @@ static bool	convert_str_to_int(char *str, long *num)
 }
 
 /**
- * @brief シミュレーション用の引数を取得する 
- * 
- * @param av 
- * @param args 
- * @return true 正常
+ * @brief シミュレーション用の引数を取得する
+ *
+ * @param av
+ * @param args
+ * @return true 取得に成功した
  * @return false エラー；取得に失敗した
  */
 bool	input_arguments(char **av, t_philo_dto *args)
 {
-	if (!convert_str_to_int(av[1], &args->num_of_philos))
+	if (!convert_str_to_int(av[1], &args->num_of_philos)
+		|| args->num_of_philos > PHILO_MAX)
 		return (false);
 	if (!convert_str_to_int(av[2], &args->time_to_die))
 		return (false);
@@ -83,7 +61,5 @@ bool	input_arguments(char **av, t_philo_dto *args)
 	}
 	else
 		args->num_of_eating = -1;
-	if (!is_valid_arguments(args))
-		return (false);
 	return (true);
 }

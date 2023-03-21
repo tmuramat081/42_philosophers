@@ -56,3 +56,8 @@ philo/test.sh
 philo/philo
 philo/log
 philo/philo
+html/
+latex/
+.DS_Store
+Doxyfile
+philo

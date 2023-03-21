@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkohki <kkohki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 00:36:29 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 22:57:26 by kkohki           ###   ########.fr       */
+/*   Updated: 2023/03/21 12:59:48 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * @brief Create a threads object
- * 
+ *
  * @param philos スレッドを新規作成する
  * @param monitor モニター
  * @param waiter ウェイター
@@ -38,7 +38,7 @@ void	create_threads(
 
 /**
  * @brief 作成したスレッドのリソースを解放する
- * 
+ *
  * @param philos 哲学者
  * @param monitor モニター
  */
@@ -57,8 +57,8 @@ void	destroy_threads(t_philosopher *philos, t_monitor *monitor)
 }
 
 /**
- * @brief シミュレーションの開始 
- * 
+ * @brief シミュレーションの開始
+ *
  */
 void	simulate_problem(t_philo_dto input)
 {
@@ -66,8 +66,8 @@ void	simulate_problem(t_philo_dto input)
 	t_arbitrator	waiter;
 	t_philosopher	philos[PHILO_MAX];
 
-	waiter = init_arbitrator(input);
-	monitor = init_monitor(input);
+	init_arbitrator(&waiter, input);
+	init_monitor(&monitor, input);
 	init_philosophers(philos, input, &monitor, &waiter);
 	monitor.philos = philos;
 	waiter.monitor = &monitor;
