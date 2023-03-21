@@ -18,7 +18,7 @@
 # define MSG_SLEEPING "is sleeping"
 # define MSG_THINKING "is thinking"
 # define MSG_DIED "died"
-# define PHILO_MAX 500
+# define PHILO_MAX 200
 
 # include <libc.h>
 # include <pthread.h>
@@ -43,6 +43,7 @@ struct s_philo_dto
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	num_of_eating;
+	long	started_at;
 };
 
 struct s_philosopher
@@ -111,7 +112,7 @@ int				receive_message(t_philosopher *philo);
 long			ft_strtol_d(const char *nptr, char **endp);
 int				ft_isspace(int c);
 int				ft_isdigit(int c);
-void			ft_sleep(long time_to_wait);
+void			usleep_ms(long time_to_wait);
 int				put_error(void);
 long			gettime_ms(void);
 long			get_elapsed_time(long start_ms, long end_ms);

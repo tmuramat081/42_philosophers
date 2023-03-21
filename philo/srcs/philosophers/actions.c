@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkohki <kkohki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:27 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/10 22:55:38 by kkohki           ###   ########.fr       */
+/*   Updated: 2023/03/21 14:18:17 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	do_pick_up_forks(t_philosopher *philo)
 /**
  * @brief 哲学者：フォークを置く
  *
- * @param philo 哲学さh
+ * @param philo 哲学者の管理情報
  * @return int
  */
 static int	do_take_down_forks(t_philosopher *philo)
@@ -47,7 +47,7 @@ static int	do_take_down_forks(t_philosopher *philo)
  * @brief 哲学者：食事
  *
  * @param philo 哲学者
- * @param monitor　モニターへの参照アドレス
+ * @param monitor　監視者
  * @return int　正常に食事を行なった場合は1, 動作の前に死を迎えた場合は0を返す。
  */
 int	do_eat(t_philosopher *philo, t_monitor *monitor)
@@ -61,7 +61,7 @@ int	do_eat(t_philosopher *philo, t_monitor *monitor)
 	pthread_mutex_unlock(&philo->mutex);
 	if (!put_timestamp(MSG_EATING, philo))
 		return (0);
-	ft_sleep(monitor->time_to_eat);
+	usleep_ms(monitor->time_to_eat);
 	do_take_down_forks(philo);
 	philo->count_eaten++;
 	send_message(philo);
@@ -79,7 +79,7 @@ int	do_sleep(t_philosopher *philo, t_monitor *monitor)
 {
 	if (!put_timestamp(MSG_SLEEPING, philo))
 		return (0);
-	ft_sleep(monitor->time_to_sleep);
+	usleep_ms(monitor->time_to_sleep);
 	return (1);
 }
 
