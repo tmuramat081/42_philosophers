@@ -97,14 +97,14 @@ struct s_arbitrator
 };
 
 /**  Main functions */
-void			simulate_problem(t_philo_dto input);
+void			simulate_problem(t_philo_dto args);
 bool			input_arguments(char **av, t_philo_dto *philo);
 
 /** Initialize functions */
-void			init_arbitrator(t_arbitrator *waiter, t_philo_dto input);
-void			init_monitor(t_monitor *monitor, t_philo_dto input);
+void			init_arbitrator(t_arbitrator *waiter, t_philo_dto args);
+void			init_monitor(t_monitor *monitor, t_philo_dto args);
 void			init_philosophers(t_philosopher philo[200], \
-	t_philo_dto input, t_monitor *monitor, t_arbitrator *waiter);
+	t_philo_dto args, t_monitor *monitor, t_arbitrator *waiter);
 
 /** Thread for philosophers */
 void			*lifecycle(void *philo);

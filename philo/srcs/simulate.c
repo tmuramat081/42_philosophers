@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 00:36:29 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 19:04:02 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:59:10 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void	destroy_threads(
 	ft_deque_delete(&waiter->queue);
 }
 
-void	send_first_message(t_philosopher *philos, t_philo_dto input)
+void	send_first_message(t_philosopher *philos, t_philo_dto args)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < (size_t)input.num_of_philos)
+	while (i < (size_t)args.num_of_philos)
 	{
 		send_message(&philos[i]);
 		i++;
@@ -77,18 +77,18 @@ void	send_first_message(t_philosopher *philos, t_philo_dto input)
  * @brief シミュレーションの開始
  *
  */
-void	simulate_problem(t_philo_dto input)
+void	simulate_problem(t_philo_dto args)
 {
 	t_monitor		monitor;
 	t_arbitrator	waiter;
 	t_philosopher	philos[PHILO_MAX];
 
-	init_arbitrator(&waiter, input);
-	init_monitor(&monitor, input);
-	init_philosophers(philos, input, &monitor, &waiter);
+	init_arbitrator(&waiter, args);
+	init_monitor(&monitor, args);
+	init_philosophers(philos, args, &monitor, &waiter);
 	monitor.philos = philos;
 	waiter.monitor = &monitor;
-	send_first_message(philos, input);
+	send_first_message(philos, args);
 	create_threads(philos, &monitor, &waiter);
 	destroy_threads(philos, &monitor, &waiter);
 }
