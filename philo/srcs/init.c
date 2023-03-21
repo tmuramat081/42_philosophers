@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:45 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 19:58:48 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 21:35:20 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	init_philosophers(t_philosopher *philos, t_philo_dto args,
 		philos[i].started_at = args.started_at;
 		philos[i].id = i;
 		philos[i].fork_left = &monitor->forks[i];
-		philos[i].fork_right = &monitor->forks[(i + 1) % args.num_of_eating];
+		philos[i].fork_right = &monitor->forks[(i + 1) % args.num_of_philos];
 		philos[i].count_eaten = 0;
 		philos[i].last_eat_at = philos[i].started_at;
 		philos[i].monitor = monitor;

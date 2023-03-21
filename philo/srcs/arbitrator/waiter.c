@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:50:12 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 20:33:53 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 21:35:55 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,5 @@ void	*server(void	*p_waiter)
 	waiter = p_waiter;
 	while (_is_over(waiter))
 		;
-	puts("waiter END");
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:53 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 20:05:05 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 21:08:21 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	dead_timestamp(t_philosopher *philo, t_monitor *monitor, long now)
 /**
  * @brief 哲学者の死亡判定
  *
- * @param monitor モニターへの参照アドレス
+ * @param monitor 監視者への参照アドレス
  * @param philos 哲学者への参照アドレス
  * @return true　いずれかの哲学者が死を迎えた
  * @return false　いずれの哲学者も死を迎えていない
