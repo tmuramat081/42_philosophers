@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:14:53 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 19:27:00 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:05:05 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	dead_timestamp(t_philosopher *philo, t_monitor *monitor, long now)
 {
 	long	elapsed_time;
 
+	pthread_mutex_lock(&philo->monitor->mutex_check);
+	monitor->is_sim_over = true;
+	pthread_mutex_unlock(&philo->monitor->mutex_check);
 	pthread_mutex_lock(&monitor->mutex_write);
 	elapsed_time = get_elapsed_time(philo->started_at, now);
 	printf("%ld %zu %s\n", elapsed_time, philo->id + 1, MSG_DIED);
 	pthread_mutex_unlock(&monitor->mutex_write);
-	pthread_mutex_lock(&philo->monitor->mutex_check);
-	monitor->is_sim_over = true;
-	pthread_mutex_unlock(&philo->monitor->mutex_check);
 	return (1);
 }
 
