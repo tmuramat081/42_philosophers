@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 00:36:29 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 12:59:48 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:54:16 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	create_threads(
 	i = 0;
 	while (i < monitor->num_of_philos)
 	{
+		send_message(&philos[i]);
 		pthread_create(&philos[i].thread_id, NULL, lifecycle, &philos[i]);
 		i++;
 	}
