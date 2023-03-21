@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 00:36:29 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 15:03:43 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:04:02 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,12 @@ void	create_threads(
 	size_t		i;
 
 	pthread_create(&waiter->thread_id, NULL, server, waiter);
-	pthread_detach(waiter->thread_id);
 	pthread_create(&monitor->thread_id, NULL, checker, monitor);
-	pthread_detach(monitor->thread_id);
 	i = 0;
 	while (i < monitor->num_of_philos)
 	{
 		pthread_create(&philos[i].thread_id, NULL, lifecycle, &philos[i]);
-		usleep(100);
+		usleep(50);
 		i++;
 	}
 }
@@ -43,7 +41,8 @@ void	create_threads(
  * @param philos 哲学者
  * @param monitor モニター
  */
-void	destroy_threads(t_philosopher *philos, t_monitor *monitor)
+void	destroy_threads(
+	t_philosopher *philos, t_monitor *monitor, t_arbitrator *waiter)
 {
 	size_t	i;
 
@@ -55,6 +54,11 @@ void	destroy_threads(t_philosopher *philos, t_monitor *monitor)
 		pthread_mutex_destroy(&monitor->forks[i]);
 		i++;
 	}
+	pthread_join(monitor->thread_id, NULL);
+	pthread_join(waiter->thread_id, NULL);
+	pthread_mutex_destroy(&monitor->mutex_check);
+	pthread_mutex_destroy(&monitor->mutex_write);
+	ft_deque_delete(&waiter->queue);
 }
 
 void	send_first_message(t_philosopher *philos, t_philo_dto input)
@@ -86,5 +90,5 @@ void	simulate_problem(t_philo_dto input)
 	waiter.monitor = &monitor;
 	send_first_message(philos, input);
 	create_threads(philos, &monitor, &waiter);
-	destroy_threads(philos, &monitor);
+	destroy_threads(philos, &monitor, &waiter);
 }

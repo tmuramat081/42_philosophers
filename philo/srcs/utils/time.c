@@ -6,7 +6,7 @@
 /*   By: tmuramat <tmuramat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:49:04 by tmuramat          #+#    #+#             */
-/*   Updated: 2023/03/21 18:49:24 by tmuramat         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:29:44 by tmuramat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	put_timestamp(char *string, t_philosopher *philo)
 		pthread_mutex_unlock(&philo->monitor->mutex_check);
 		return (0);
 	}
-	pthread_mutex_unlock(&philo->monitor->mutex_check);
 	pthread_mutex_lock(&philo->monitor->mutex_write);
 	printf("%ld %zu %s\n", elapsed_time, philo->id + 1, string);
 	pthread_mutex_unlock(&philo->monitor->mutex_write);
+	pthread_mutex_unlock(&philo->monitor->mutex_check);
 	return (1);
 }
