@@ -1,4 +1,4 @@
-# 42_philosophers
+# Philosophers
 Project of 42 Tokyo.
 
 ## Installation
