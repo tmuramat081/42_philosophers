@@ -12,7 +12,7 @@ make
 ## Document
 [データ構造](https://drive.google.com/file/d/1CI_Tv2KvBQmJFTztOBc7CmkuUntpGdvf/view?usp=sharing)
 
-## Refarence
+## Reference
 [食事する哲学者の問題](https://github.com/k5-mot/The-Dining-Philosophers-Problem) 
 
 [Mini Project: Dining Philosophers](https://www.palfrader.org/research/misc/2010-dining-philosophers.pdf) 
