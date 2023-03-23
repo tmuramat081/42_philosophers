@@ -1,4 +1,6 @@
 # Philosophers
+![835523044_dining_philosopher_problem](https://user-images.githubusercontent.com/91453112/227244002-9d53c8cb-62ac-4fc7-b2d6-687c4eb668b1.png)
+
 Project of 42 Tokyo.
 
 ## Installation
