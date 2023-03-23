@@ -1,5 +1,5 @@
-# Philosophers
 ![1625791797_dining_philosophers](https://user-images.githubusercontent.com/91453112/227244682-49daac77-7795-43b0-9b9d-735929e7b2f2.png)
+# Philosophers
 
 Project of 42 Tokyo.
 
